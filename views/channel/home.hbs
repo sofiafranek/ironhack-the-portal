@@ -1,0 +1,20 @@
+<h3>Your feed</h3>
+
+<main class="flex">
+  <section class="feed">
+    {{#each posts}}
+      {{>post}}
+    {{/each}}
+  </section>
+  <aside class="aside">
+    {{!-- <a href="/channel/create" class="btn mb-2">
+      <button>Create Channel</button>
+    </a> --}}
+    <h3>Popular Channels</h3>
+    <ul>
+      {{#each popularChannels}}
+        <li><a href="/channel/{{ _id }}">{{ name }}</a></li>
+      {{/each}}
+    </ul>
+  </aside>
+</main>

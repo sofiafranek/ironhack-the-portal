@@ -1,0 +1,19 @@
+<article>
+  <h1>{{ post.title }}</h1>
+  <span>
+    Channel: <a href="/channel/{{ post.channel._id }}">{{ post.channel.name }}</a> | Author <a href="/profile/{{ post.author._id }}">{{ post.author.name }}</a>
+  </span>
+  <p>{{ post.content }}</p>
+</article>
+
+{{#each comment}}
+  {{> singlecomment}}
+{{/each}}
+
+<h2>Create a new Comment</h2>
+
+<form method="POST" enctype="multipart/form-data">
+  <textarea name="text" maxlength="140" placeholder="Write your comment here..." required></textarea>
+  <input type="file" name="image"/>
+  <button class="btn">Comment</button>
+</form>

@@ -1,0 +1,25 @@
+{
+  "name": "hellotodoapplication",
+  "version": "1.0.0",
+  "description": "Hello-To-Do-Application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.15.6",
+    "handlebars": "^4.7.3",
+    "hbs": "^4.1.0",
+    "method-override": "^2.3.10",
+    "mongoose": "^5.0.14",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}

@@ -1,0 +1,13 @@
+<h1>{{ channel.name }}</h1>
+
+<main>
+  <section>
+    {{#each posts}}
+      {{>post}}
+      <a href = "/comment/make">Comment</a>
+    {{/each}}
+  </section>
+  <aside>
+    <a href="/channel/{{ channel._id }}/post/create" class="btn">Create Post</a>
+  </aside>
+</main>

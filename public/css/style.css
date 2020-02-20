@@ -1,0 +1,175 @@
+@font-face {
+  font-family: 'Gordita';
+  src: url('Gordita\ Regular.woff');
+}
+
+@font-face {
+  font-family: 'Gordita Bold';
+  src: url('Gordita\ Bold.woff');
+}
+
+body {
+  font-family: 'Gordita';
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 30px;
+}
+
+h1 {
+  margin-bottom: 35px;
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 1.4em;
+}
+
+h4 {
+  margin-bottom: 20px;
+}
+
+a {
+  font-family: 'Gordita Bold';
+  color: #889deb;
+}
+
+.seperator {
+  margin: 0 5px;
+}
+
+.dropdown {
+  margin-right: 15px;
+}
+
+button {
+  font-family: 'Gordita Bold';
+  background-color: #889deb;
+  border-radius: 3px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  line-height: 45px;
+  padding: 0px 25px;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s ease-in-out;
+  white-space: nowrap;
+}
+
+.block {
+  max-width: 48%;
+}
+
+.delete {
+  margin: 0 !important;
+  min-width: 45px;
+  max-width: 45px;
+  float: right;
+}
+
+.feed {
+  width: 60%;
+  margin-right: 5em;
+}
+
+.feed div {
+  margin: 25px 0;
+}
+
+.aside {
+  min-width: 30%;
+}
+
+.aside h3 {
+  margin-bottom: 40px;
+}
+
+.aside ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.aside ul li {
+  margin: 10px 0;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.half {
+  max-width: 45%;
+}
+
+.todoFlex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.container {
+  position: relative;
+}
+
+.container form {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.notesContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard {
+  margin-right: 20px;
+}
+
+.notesContainer a {
+  max-width: 45%;
+  margin-top: 0.5rem;
+}
+
+.notesContainer form {
+  min-width: 45%;
+}
+
+.navbar {
+  padding: 20px 0;
+}
+
+.intro {
+  text-align: center;
+  margin: 100px 0;
+}
+
+.intro h2 {
+  margin-bottom: 40px;
+}
+
+.card-body {
+  padding: 2em;
+}
+
+.card-body h3 {
+  margin-bottom: 20px;
+}
+
+.card-body button {
+  margin-top: 20px;
+}
+
+.btn-block {
+  border: 2px solid;
+  padding: 10px 0 5px;
+}
+
+@media (max-width: 980px) {
+  .block {
+    max-width: 100%;
+  }
+}
