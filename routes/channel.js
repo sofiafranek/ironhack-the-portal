@@ -7,9 +7,9 @@ const Channel = require('./../models/channel');
 const Post = require('./../models/post');
 const Comment = require('./../models/comment');
 
-const routeGuard = require('./../middleware/route-guard');
+const { ensureAuthenticated } = require('../helpers/auth');
 
-router.get('/', (req, res, next) => {
+router.get('/', ensureAuthenticated, (req, res, next) => {
   let channels;
 
   Channel.find()
@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.get('/allchannels', (req, res, next) => {
+router.get('/allchannels', ensureAuthenticated, (req, res, next) => {
   let channels;
   Channel.find()
     .then(documents => {
@@ -43,11 +43,11 @@ router.get('/allchannels', (req, res, next) => {
     });
 });
 
-router.get('/create', (req, res, next) => {
+router.get('/create', ensureAuthenticated, (req, res, next) => {
   res.render('channel/create');
 });
 
-router.post('/create', (req, res, next) => {
+router.post('/create', ensureAuthenticated, (req, res, next) => {
   const { name } = req.body;
   Channel.create({
     name
@@ -60,7 +60,7 @@ router.post('/create', (req, res, next) => {
     });
 });
 
-router.get('/:channelId', (req, res, next) => {
+router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
   // const { channelId } = req.params;
   const channelId = req.params.channelId;
 
@@ -85,11 +85,11 @@ router.get('/:channelId', (req, res, next) => {
     });
 });
 
-router.get('/:channelId/post/create', (req, res, next) => {
+router.get('/:channelId/post/create', ensureAuthenticated, (req, res, next) => {
   res.render('channel/create-post');
 });
 
-router.post('/:channelId/post/create', (req, res, next) => {
+router.post('/:channelId/post/create', ensureAuthenticated, (req, res, next) => {
   const { title, content } = req.body;
   const { channelId } = req.params;
 
@@ -109,7 +109,7 @@ router.post('/:channelId/post/create', (req, res, next) => {
     });
 });
 
-router.get('/:channelId/post/:postId', (req, res, next) => {
+router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => {
   const { postId } = req.params;
 
   Post.findById(postId)
@@ -127,7 +127,7 @@ router.get('/:channelId/post/:postId', (req, res, next) => {
     });
 });
 
-router.get('/:channelId/post/:postId', (req, res, next) => {
+router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => {
   const { postId } = req.params;
 
   let post;
@@ -149,7 +149,7 @@ router.get('/:channelId/post/:postId', (req, res, next) => {
     });
 });
 
-router.get('/:channelId/post/:postId/edit', (req, res, next) => {
+router.get('/:channelId/post/:postId/edit', ensureAuthenticated, (req, res, next) => {
   const { postId } = req.params;
 
   Post.findOne({
@@ -168,7 +168,7 @@ router.get('/:channelId/post/:postId/edit', (req, res, next) => {
     });
 });
 
-router.post('/:channelId/post/:postId/edit', routeGuard(true), (req, res, next) => {
+router.post('/:channelId/post/:postId/edit', ensureAuthenticated, (req, res, next) => {
   const { channelId, postId } = req.params;
   const { title, content } = req.body;
 
@@ -190,7 +190,7 @@ router.post('/:channelId/post/:postId/edit', routeGuard(true), (req, res, next) 
     });
 });
 
-router.post('/:channelId/post/:postId/comment', routeGuard(true), (req, res, next) => {
+router.post('/:channelId/post/:postId/comment', ensureAuthenticated, (req, res, next) => {
   const { channelId, postId } = req.params;
   const { content } = req.body;
 

@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
+const { ensureAuthenticated } = require('../helpers/auth');
+
 // load user model
 require('../models/User');
 const User = mongoose.model('User');
@@ -18,7 +20,7 @@ router.get('/login', (req, res) => {
 });
 
 // user dashboard route
-router.get('/dashboard', (req, res, next) => {
+router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
   let notes;
   Note.find().then(documents => {
     notes = documents;

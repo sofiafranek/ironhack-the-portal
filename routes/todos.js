@@ -3,8 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const { ensureAuthenticated } = require('../helpers/auth');
 
-// load helper
-
 // load schema
 require('../models/Todo');
 const Todo = mongoose.model('Todo');
@@ -17,7 +15,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
       res.render('todos/index', {
         todos: todos
       });
-    }); // find something in DB
+    });
 });
 
 // add todo form
