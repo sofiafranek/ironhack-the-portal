@@ -1,10 +1,17 @@
-// Route Guard Middleware
-// This piece of middleware is going to check if a user is authenticated
-// If not, it sends the request to the custom error handler with a message
-module.exports = (req, res, next) => {
-  if (req.user) {
-    next();
+'use strict';
+
+module.exports = userShouldBeAuthenticated => (req, res, next) => {
+  if (userShouldBeAuthenticated) {
+    if (req.user) {
+      next();
+    } else {
+      next(new Error('USER_NOT_AUTHENTICATED'));
+    }
   } else {
-    next(new Error('User has no permission to visit that page.'));
+    if (req.user) {
+      next(new Error('VISITOR_EXPECTED'));
+    } else {
+      next();
+    }
   }
 };

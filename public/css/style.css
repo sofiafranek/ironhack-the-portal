@@ -100,10 +100,6 @@ button {
   justify-content: space-between;
 }
 
-.half {
-  max-width: 45%;
-}
-
 .todoFlex {
   display: flex;
   flex-wrap: wrap;

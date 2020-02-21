@@ -7,6 +7,10 @@ const passport = require('passport');
 // load user model
 require('../models/User');
 const User = mongoose.model('User');
+require('../models/Todo');
+const Todo = mongoose.model('Todo');
+require('../models/Note');
+const Note = mongoose.model('Note');
 
 // user login route
 router.get('/login', (req, res) => {
@@ -14,8 +18,24 @@ router.get('/login', (req, res) => {
 });
 
 // user dashboard route
-router.get('/dashboard', (req, res) => {
-  res.render('users/dashboard');
+router.get('/dashboard', (req, res, next) => {
+  let notes;
+  Note.find().then(documents => {
+    notes = documents;
+    return Note.find().populate('notes author');
+  });
+  let todos;
+  Todo.find()
+    .then(documents => {
+      todos = documents;
+      return Note.find().populate('todos author');
+    })
+    .then(posts => {
+      res.render('users/dashboard', { posts, allNotes: notes, allTodos: todos });
+    })
+    .catch(error => {
+      next(error);
+    });
 });
 
 // user login route

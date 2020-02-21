@@ -2,12 +2,18 @@
 <h6>Find all your recent activity and general settings for your account</h6>
 
 <div class="flex pt-5">
-  <div class="recentTodos card card-body half">
+  <div class="recentTodos card card-body col-6">
   <h4>Recent todos</h4>
+  {{#each allTodos}}
+    <li><a href="/todos/{{ todo }}/{{ _id }}">{{title}}</a></li>
+  {{/each}}
 </div>
 
-<div class="recentNotes card card-body half">
+<div class="recentNotes card card-body col-6">
   <h4>Recent notes</h4>
+  {{#each allNotes}}
+    <li><a href="/notes/{{ note }}/{{ _id }}">{{title}}</a></li>
+  {{/each}}
 </div>
 </div>
 

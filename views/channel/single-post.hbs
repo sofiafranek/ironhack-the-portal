@@ -10,10 +10,11 @@
   {{> singlecomment}}
 {{/each}}
 
-<h2>Create a new Comment</h2>
-
-<form method="POST" enctype="multipart/form-data">
-  <textarea name="text" maxlength="140" placeholder="Write your comment here..." required></textarea>
-  <input type="file" name="image"/>
-  <button class="btn">Comment</button>
-</form>
+<footer>
+  <h4>Comments</h4>
+  {{#each comments}}
+    {{>comment}}
+  {{/each}}
+  <h4>Add a Comment</h4>
+  {{>commentform}}
+</footer>

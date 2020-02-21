@@ -5,6 +5,9 @@ const router = new Router();
 
 const Channel = require('./../models/channel');
 const Post = require('./../models/post');
+const Comment = require('./../models/comment');
+
+const routeGuard = require('./../middleware/route-guard');
 
 router.get('/', (req, res, next) => {
   let channels;
@@ -19,6 +22,21 @@ router.get('/', (req, res, next) => {
     })
     .then(posts => {
       res.render('channel/home', { posts, popularChannels: channels });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+router.get('/allchannels', (req, res, next) => {
+  let channels;
+  Channel.find()
+    .then(documents => {
+      channels = documents;
+      return Post.find().populate('channel author');
+    })
+    .then(posts => {
+      res.render('channel/list', { posts, allChannels: channels });
     })
     .catch(error => {
       next(error);
@@ -103,6 +121,93 @@ router.get('/:channelId/post/:postId', (req, res, next) => {
         console.log(post);
         res.render('channel/single-post', { post });
       }
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+router.get('/:channelId/post/:postId', (req, res, next) => {
+  const { postId } = req.params;
+
+  let post;
+  Post.findById(postId)
+    .populate('channel author')
+    .then(document => {
+      post = document;
+      if (!document) {
+        return Promise.reject(new Error('NOT_FOUND'));
+      } else {
+        return Comment.find({ post: postId }).populate('author');
+      }
+    })
+    .then(comments => {
+      res.render('channel/single-post', { post, comments });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+router.get('/:channelId/post/:postId/edit', (req, res, next) => {
+  const { postId } = req.params;
+
+  Post.findOne({
+    _id: postId,
+    author: req.user._id
+  })
+    .then(post => {
+      if (post) {
+        res.render('channel/edit-post', { post });
+      } else {
+        next(new Error('NOT_FOUND'));
+      }
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+router.post('/:channelId/post/:postId/edit', routeGuard(true), (req, res, next) => {
+  const { channelId, postId } = req.params;
+  const { title, content } = req.body;
+
+  Post.findOneAndUpdate(
+    {
+      _id: postId,
+      author: req.user._id
+    },
+    {
+      title,
+      content
+    }
+  )
+    .then(() => {
+      res.redirect(`/channel/${channelId}/post/${postId}`);
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+router.post('/:channelId/post/:postId/comment', routeGuard(true), (req, res, next) => {
+  const { channelId, postId } = req.params;
+  const { content } = req.body;
+
+  Post.findById(postId)
+    .then(post => {
+      if (!post) {
+        return Promise.reject(new Error('NOT_FOUND'));
+      } else {
+        return Comment.create({
+          post: postId,
+          author: req.user._id,
+          content
+        });
+      }
+    })
+    .then(() => {
+      res.redirect(`/channel/${channelId}/post/${postId}`);
     })
     .catch(error => {
       next(error);

@@ -24,24 +24,7 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  },
-  comments: [
-    {
-      content: {
-        type: String,
-        required: true,
-        trim: true
-      },
-      authorId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
-        required: true
-      }
-    },
-    {
-      timestamps: true
-    }
-  ]
+  }
 });
 
 const Model = mongoose.model('Post', schema);
