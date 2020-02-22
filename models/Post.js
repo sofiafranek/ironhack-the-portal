@@ -24,6 +24,10 @@ const schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  creationDate: {
+    type: Date,
+    default: Date.now
   }
 });
 

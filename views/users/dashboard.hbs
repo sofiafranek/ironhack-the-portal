@@ -5,14 +5,14 @@
   <div class="recentTodos card card-body col-5">
   <h4>Recent todos</h4>
   {{#each allTodos}}
-    <li><a href="/todos/{{ todo }}/{{ _id }}">{{title}}</a></li>
+    <a href="/todos/{{ todo }}/{{ _id }}">{{title}}</a>
   {{/each}}
 </div>
 
 <div class="recentNotes card card-body col-5">
   <h4>Recent notes</h4>
   {{#each allNotes}}
-    <li><a href="/notes/{{ note }}/{{ _id }}">{{title}}</a></li>
+    <a href="/notes/{{ note }}/{{ _id }}">{{title}}</a>
   {{/each}}
 </div>
 </div>

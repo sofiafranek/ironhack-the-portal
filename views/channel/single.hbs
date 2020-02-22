@@ -1,13 +1,18 @@
-<h1>{{ channel.name }}</h1>
+<div class="relative">
+  <h1>{{ channel.name }}</h1>
+  <form method="post" action="/channel/{{channel._id}}/delete" class="delete-button">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" class="btn mb-2 post-delete" value="Delete Channel" style="right: 190px; line-height: 43px;">
+  </form>
+  <a href="/channel/{{ channel._id }}/post/create" class="btn create-post">
+    <button>Creat a Post</button>
+  </a>
 
 <main>
   <section>
     {{#each posts}}
       {{>post}}
-      {{!-- <a href = "/comment/make">Comment</a> --}}
     {{/each}}
   </section>
-  <aside>
-    <a href="/channel/{{ channel._id }}/post/create" class="btn">Create Post</a>
-  </aside>
 </main>
+</div>

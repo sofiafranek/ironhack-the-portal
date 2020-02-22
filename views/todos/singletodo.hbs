@@ -1,0 +1,11 @@
+  <div>
+    <h4>{{todo.title}}</h4>
+    <p>{{todo.details}}</p>
+    <p>Due date: {{todo.dueDate}}</p>
+    <p>Creation date: {{ date todo.creationDate 'DD/MM/YYYY' }}</p>
+    <a class="btn btn-block mb-2" href="/todos/edit/{{todo.id}}">Edit</a>
+    <form method="post" action="/todos/{{todo.id}}?_method=DELETE">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" class="btn btn-block mb-2" value="Delete todo">
+    </form>
+  </div>

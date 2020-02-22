@@ -15,6 +15,10 @@ const users = require('./routes/users');
 const notes = require('./routes/notes');
 const channels = require('./routes/channel');
 
+// handlbars date helper to reduce information when you ask for date creation
+const handlebarsHelperDate = require('helper-date');
+hbs.registerHelper('date', handlebarsHelperDate);
+
 // passport config
 require('./config/passport')(passport);
 

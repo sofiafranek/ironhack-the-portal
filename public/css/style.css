@@ -1,3 +1,8 @@
+/* #82a1ab */
+/* #597b99 */
+/* #5489b8 */
+/* #264c6e */
+
 @font-face {
   font-family: 'Gordita';
   src: url('Gordita\ Regular.woff');
@@ -6,6 +11,10 @@
 @font-face {
   font-family: 'Gordita Bold';
   src: url('Gordita\ Bold.woff');
+}
+
+:focus {
+  outline: none !important;
 }
 
 body {
@@ -17,24 +26,76 @@ body {
 
 h1 {
   margin-bottom: 35px;
-  font-size: 3em;
+  font-size: 2.6em;
 }
 
 h2 {
-  font-size: 1.4em;
+  font-size: 2.2em;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 2em;
 }
 
 h4 {
+  font-size: 1.6em;
   margin-bottom: 20px;
+}
+
+h5 {
+  font-size: 1.4em;
+}
+
+h6 {
+  font-size: 1.2em;
+}
+
+input {
+  border: none;
+  border-bottom: 2px solid;
 }
 
 a {
   font-family: 'Gordita Bold';
-  color: #889deb;
+  color: #597b99;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.col-8 {
+  padding-left: 0;
+}
+
+.list-all-channels li {
+  list-style: none;
+  margin: 10px 0;
 }
 
 .seperator {
   margin: 0 5px;
+}
+
+.edit-post-form {
+  margin-bottom: 50px;
+}
+
+textarea {
+  padding: 10px !important;
+}
+
+.margin {
+  margin-bottom: 40px;
+}
+
+.extra-margin {
+  margin-bottom: 60px;
+}
+
+.margin input {
+  margin-left: 20px;
 }
 
 .dropdown {
@@ -43,7 +104,7 @@ a {
 
 button {
   font-family: 'Gordita Bold';
-  background-color: #889deb;
+  background-color: #5489b8;
   border-radius: 3px;
   border: none;
   color: #fff;
@@ -74,12 +135,77 @@ button {
   margin-right: 5em;
 }
 
-.feed div {
+.feed .card {
   margin: 25px 0;
+}
+
+.feed .card h5 {
+  margin-bottom: 1em;
 }
 
 .aside {
   min-width: 30%;
+  margin-top: 30px;
+}
+
+.comment-form {
+  margin-bottom: 50px;
+}
+
+.comment-form label {
+  margin-bottom: 1.5em;
+}
+
+.comment-form h5 {
+  margin-bottom: 50px;
+}
+
+.single-post {
+  position: relative;
+}
+
+.create-post {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-top: 0;
+}
+
+.relative {
+  position: relative;
+}
+
+.create-channel div {
+  margin-top: 25px;
+}
+
+.post-delete {
+  font-family: 'Gordita Bold';
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  line-height: 42px;
+  padding: 0px 25px;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s ease-in-out;
+  white-space: nowrap;
+  max-width: fit-content;
+  position: absolute;
+  right: 150px;
+  border: 2px solid;
+  top: 0;
+}
+
+.edit-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.single-post p {
+  margin: 50px 0;
 }
 
 .aside h3 {
@@ -149,6 +275,7 @@ button {
 
 .card-body {
   padding: 2em;
+  margin: 25px 0;
 }
 
 .card-body h3 {

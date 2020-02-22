@@ -1,5 +1,12 @@
-<article>
-  <h1>{{ post.title }}</h1>
+<article class="single-post">
+  <h2 class="col-8">{{ post.title }}</h2>
+  <a href="/channel/{{ post.channel._id }}/post/{{ post._id }}/edit" class="edit-button">
+    <button>Edit Post</button>
+  </a>
+  <form method="post" action="/channel/{{post.channel._id}}/post/{{post._id}}/delete" class="delete-button">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" class="btn mb-2 post-delete" value="Delete Post">
+  </form>
   <span>
     Channel: <a href="/channel/{{ post.channel._id }}">{{ post.channel.name }}</a> | Author <a href="/profile/{{ post.author._id }}">{{ post.author.name }}</a>
   </span>
@@ -10,11 +17,11 @@
   {{> singlecomment}}
 {{/each}}
 
-<footer>
-  <h4>Comments</h4>
+<footer class="comment-form">
+  <h5>Comments</h5>
   {{#each comments}}
     {{>comment}}
   {{/each}}
-  <h4>Add a Comment</h4>
+  {{!-- <h6>Add a Comment</h6> --}}
   {{>commentform}}
 </footer>

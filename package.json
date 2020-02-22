@@ -17,6 +17,7 @@
     "express-session": "^1.15.6",
     "handlebars": "^4.7.3",
     "hbs": "^4.1.0",
+    "helper-date": "^1.0.1",
     "method-override": "^2.3.10",
     "mongoose": "^5.0.14",
     "passport": "^0.4.0",

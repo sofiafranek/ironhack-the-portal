@@ -39,6 +39,28 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
   });
 });
 
+// view todo
+router.get('/:todoId', (req, res, next) => {
+  const todoId = req.params.todoId;
+
+  let todo;
+
+  Todo.findById(todoId)
+    .then(document => {
+      if (!document) {
+        next(new Error('NOT_FOUND'));
+      } else {
+        todo = document;
+      }
+    })
+    .then(posts => {
+      res.render('todos/singletodo', { todo });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
 // process  form
 router.post('/', ensureAuthenticated, (req, res) => {
   let errors = [];
