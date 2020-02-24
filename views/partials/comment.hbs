@@ -1,4 +1,8 @@
 <div class="comment-item">
   <small><a href="/profile/{{ author._id }}">{{ author.name }}</a></small>
   <p>{{ content }}</p>
+    <form method="post" action="/channel/{{post}}/{{ _id }}/delete">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" class="btn btn-block" value="X">
+    </form>
 </div>

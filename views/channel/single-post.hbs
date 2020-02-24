@@ -13,15 +13,12 @@
   <p>{{ post.content }}</p>
 </article>
 
-{{#each comment}}
-  {{> singlecomment}}
-{{/each}}
-
 <footer class="comment-form">
   <h5>Comments</h5>
-  {{#each comments}}
+{{#each comments}}
     {{>comment}}
   {{/each}}
+  
   {{!-- <h6>Add a Comment</h6> --}}
   {{>commentform}}
 </footer>

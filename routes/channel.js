@@ -9,6 +9,7 @@ const Comment = require('./../models/comment');
 
 const { ensureAuthenticated } = require('../helpers/auth');
 
+// rendering the main feed page
 router.get('/', ensureAuthenticated, (req, res, next) => {
   let channels;
 
@@ -28,6 +29,7 @@ router.get('/', ensureAuthenticated, (req, res, next) => {
     });
 });
 
+// the list of all channels page
 router.get('/allchannels', ensureAuthenticated, (req, res, next) => {
   let channels;
   Channel.find()
@@ -43,10 +45,12 @@ router.get('/allchannels', ensureAuthenticated, (req, res, next) => {
     });
 });
 
+// when user wants to create a channel this directs to the view to create a channel
 router.get('/create', ensureAuthenticated, (req, res, next) => {
   res.render('channel/create');
 });
 
+// when a user creates a channel
 router.post('/create', ensureAuthenticated, (req, res, next) => {
   const { name } = req.body;
   Channel.create({
@@ -60,8 +64,8 @@ router.post('/create', ensureAuthenticated, (req, res, next) => {
     });
 });
 
+// when user wants to view the channel and all the posts created in that channel appear too
 router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
-  // const { channelId } = req.params;
   const channelId = req.params.channelId;
 
   let channel;
@@ -85,10 +89,12 @@ router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
     });
 });
 
+// when user wants to create a post render to the create post view
 router.get('/:channelId/post/create', ensureAuthenticated, (req, res, next) => {
   res.render('channel/create-post');
 });
 
+// create a single post
 router.post('/:channelId/post/create', ensureAuthenticated, (req, res, next) => {
   const { title, content } = req.body;
   const { channelId } = req.params;
@@ -124,6 +130,8 @@ router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => 
       }
     })
     .then(comments => {
+      console.log('this is the post', post);
+      console.log('this is the comment', comments);
       res.render('channel/single-post', { post, comments });
     })
     .catch(error => {
@@ -219,6 +227,26 @@ router.post('/:channelId/post/:postId/comment', ensureAuthenticated, (req, res, 
     })
     .then(() => {
       res.redirect(`/channel/${channelId}/post/${postId}`);
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+// route to add a comment to a single post
+router.post('/:postId/:commentId/delete', ensureAuthenticated, (req, res, next) => {
+  const { commentId, postId } = req.params;
+  let channelId;
+  //first im gonna look for the channel in the post model
+  Post.findById(postId)
+    .then(post => {
+      channelId = post.channel;
+    })
+    .then(() => {
+      //then i will be removing the comment and redirecting the user
+      Comment.findByIdAndDelete(commentId).then(() => {
+        res.redirect(`/channel/${channelId}/post/${postId}`);
+      });
     })
     .catch(error => {
       next(error);
