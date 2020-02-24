@@ -148,6 +148,22 @@ button {
   margin-top: 30px;
 }
 
+.comment-item {
+  position: relative;
+}
+
+.commentX {
+  padding: 10px 15px 5px;
+  border: 2px solid;
+}
+
+.comment-item form {
+  max-width: fit-content;
+  position: absolute;
+  right: 0;
+  top: 5px;
+}
+
 .comment-form {
   margin-bottom: 50px;
 }

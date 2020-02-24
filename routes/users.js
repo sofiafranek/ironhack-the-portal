@@ -22,12 +22,12 @@ router.get('/login', (req, res) => {
 // user dashboard route
 router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
   let notes;
-  Note.find().then(documents => {
+  Note.find({ user: req.user.id }).then(documents => {
     notes = documents;
     return Note.find().populate('notes author');
   });
   let todos;
-  Todo.find()
+  Todo.find({ user: req.user.id })
     .then(documents => {
       todos = documents;
       return Note.find().populate('todos author');

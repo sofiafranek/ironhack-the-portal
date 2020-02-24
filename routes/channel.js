@@ -9,6 +9,16 @@ const Comment = require('./../models/comment');
 
 const { ensureAuthenticated } = require('../helpers/auth');
 
+const hbs = require('hbs');
+
+hbs.registerHelper('ifvalue', function(conditional, options) {
+  if (conditional == options.hash.equals) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+});
+
 // rendering the main feed page
 router.get('/', ensureAuthenticated, (req, res, next) => {
   let channels;
@@ -115,9 +125,11 @@ router.post('/:channelId/post/create', ensureAuthenticated, (req, res, next) => 
     });
 });
 
+// to view the single post view
 router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => {
   const { postId } = req.params;
-
+  const user = req.user._id;
+  let sameUser;
   let post;
   Post.findById(postId)
     .populate('channel author')
@@ -130,15 +142,18 @@ router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => 
       }
     })
     .then(comments => {
-      console.log('this is the post', post);
-      console.log('this is the comment', comments);
-      res.render('channel/single-post', { post, comments });
+      user.toString() == post.author._id.toString() ? (sameUser = true) : (sameUser = false);
+      //console.log(sameUser);
+      // console.log('this is the post', post);
+      // console.log('this is the comment', comments);
+      res.render('channel/single-post', { post, comments, sameUser });
     })
     .catch(error => {
       next(error);
     });
 });
 
+// router to edit a single post
 router.get('/:channelId/post/:postId/edit', ensureAuthenticated, (req, res, next) => {
   const { postId } = req.params;
 

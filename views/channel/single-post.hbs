@@ -1,5 +1,6 @@
 <article class="single-post">
   <h2 class="col-8">{{ post.title }}</h2>
+  {{#if sameUser}}
   <a href="/channel/{{ post.channel._id }}/post/{{ post._id }}/edit" class="edit-button">
     <button>Edit Post</button>
   </a>
@@ -7,6 +8,7 @@
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" class="btn mb-2 post-delete" value="Delete Post">
   </form>
+  {{/if}}
   <span>
     Channel: <a href="/channel/{{ post.channel._id }}">{{ post.channel.name }}</a> | Author <a href="/profile/{{ post.author._id }}">{{ post.author.name }}</a>
   </span>
