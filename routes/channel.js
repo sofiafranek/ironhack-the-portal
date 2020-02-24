@@ -79,7 +79,6 @@ router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
       if (!document) {
         next(new Error('NOT_FOUND'));
       } else {
-        console.log('DOCUMENT', document);
         channel = document;
         return Post.find({ channel: channelId })
           .populate('channel author')
@@ -87,7 +86,6 @@ router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
       }
     })
     .then(posts => {
-      console.log(sameUser);
       user.toString() == channel.author._id.toString() ? (sameUser = true) : (sameUser = false);
       res.render('channel/single', { channel, posts, sameUser });
     })
@@ -140,9 +138,6 @@ router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => 
     })
     .then(comments => {
       user.toString() == post.author._id.toString() ? (sameUser = true) : (sameUser = false);
-      //console.log(sameUser);
-      // console.log('this is the post', post);
-      // console.log('this is the comment', comments);
       res.render('channel/single-post', { post, comments, sameUser });
     })
     .catch(error => {
@@ -225,6 +220,9 @@ router.post('/:channelId/post/:postId/comment', ensureAuthenticated, (req, res, 
   const { channelId, postId } = req.params;
   const { content } = req.body;
 
+  const user = req.user._id;
+  let sameUser;
+
   Post.findById(postId)
     .then(post => {
       if (!post) {
@@ -237,7 +235,10 @@ router.post('/:channelId/post/:postId/comment', ensureAuthenticated, (req, res, 
         });
       }
     })
-    .then(() => {
+    .then(comment => {
+      console.log(user);
+      console.log(comment.author);
+      user.toString() == comment.author.toString() ? (sameUser = true) : (sameUser = false);
       res.redirect(`/channel/${channelId}/post/${postId}`);
     })
     .catch(error => {
@@ -245,7 +246,7 @@ router.post('/:channelId/post/:postId/comment', ensureAuthenticated, (req, res, 
     });
 });
 
-// route to add a comment to a single post
+// route to delete a comment to a single post
 router.post('/:postId/:commentId/delete', ensureAuthenticated, (req, res, next) => {
   const { commentId, postId } = req.params;
   let channelId;
@@ -257,7 +258,8 @@ router.post('/:postId/:commentId/delete', ensureAuthenticated, (req, res, next) 
     .then(() => {
       //then i will be removing the comment and redirecting the user
       Comment.findByIdAndDelete(commentId).then(() => {
-        res.redirect(`/channel/${channelId}/post/${postId}`);
+        // error is I can not pass same User to a redirect only a render
+        res.redirect(`/channel/${channelId}/post/${postId}`, { sameUser });
       });
     })
     .catch(error => {
