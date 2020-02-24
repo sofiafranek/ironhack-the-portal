@@ -112,24 +112,6 @@ router.post('/:channelId/post/create', ensureAuthenticated, (req, res, next) => 
 router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => {
   const { postId } = req.params;
 
-  Post.findById(postId)
-    .populate('channel author')
-    .then(post => {
-      if (!post) {
-        next(new Error('NOT_FOUND'));
-      } else {
-        console.log(post);
-        res.render('channel/single-post', { post });
-      }
-    })
-    .catch(error => {
-      next(error);
-    });
-});
-
-router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => {
-  const { postId } = req.params;
-
   let post;
   Post.findById(postId)
     .populate('channel author')
@@ -195,6 +177,7 @@ router.post('/:channelId/delete', ensureAuthenticated, (req, res, next) => {
   });
 });
 
+// route to edit a single post
 router.post('/:channelId/post/:postId/edit', ensureAuthenticated, (req, res, next) => {
   const { channelId, postId } = req.params;
   const { title, content } = req.body;
@@ -217,19 +200,16 @@ router.post('/:channelId/post/:postId/edit', ensureAuthenticated, (req, res, nex
     });
 });
 
+// route to add a comment to a single post
 router.post('/:channelId/post/:postId/comment', ensureAuthenticated, (req, res, next) => {
   const { channelId, postId } = req.params;
   const { content } = req.body;
 
   Post.findById(postId)
-    .populate('channel author')
     .then(post => {
       if (!post) {
-        next(new Error('NOT_FOUND'));
         return Promise.reject(new Error('NOT_FOUND'));
       } else {
-        console.log(post);
-        res.render('channel/single-post', { post });
         return Comment.create({
           post: postId,
           author: req.user._id,
