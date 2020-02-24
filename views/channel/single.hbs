@@ -1,9 +1,11 @@
 <div class="relative">
   <h1>{{ channel.name }}</h1>
+  {{#if sameUser}}
   <form method="post" action="/channel/{{channel._id}}/delete" class="delete-button">
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" class="btn mb-2 post-delete" value="Delete Channel" style="right: 190px; line-height: 43px;">
   </form>
+  {{/if}}
   <a href="/channel/{{ channel._id }}/post/create" class="btn create-post">
     <button>Creat a Post</button>
   </a>

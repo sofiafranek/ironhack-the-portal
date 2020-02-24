@@ -9,16 +9,6 @@ const Comment = require('./../models/comment');
 
 const { ensureAuthenticated } = require('../helpers/auth');
 
-const hbs = require('hbs');
-
-hbs.registerHelper('ifvalue', function(conditional, options) {
-  if (conditional == options.hash.equals) {
-    return options.fn(this);
-  } else {
-    return options.inverse(this);
-  }
-});
-
 // rendering the main feed page
 router.get('/', ensureAuthenticated, (req, res, next) => {
   let channels;
@@ -64,7 +54,8 @@ router.get('/create', ensureAuthenticated, (req, res, next) => {
 router.post('/create', ensureAuthenticated, (req, res, next) => {
   const { name } = req.body;
   Channel.create({
-    name
+    name,
+    author: req.user._id
   })
     .then(channel => {
       res.redirect(`/channel/${channel._id}`);
@@ -76,6 +67,9 @@ router.post('/create', ensureAuthenticated, (req, res, next) => {
 
 // when user wants to view the channel and all the posts created in that channel appear too
 router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
+  const user = req.user._id;
+  let sameUser;
+
   const channelId = req.params.channelId;
 
   let channel;
@@ -85,6 +79,7 @@ router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
       if (!document) {
         next(new Error('NOT_FOUND'));
       } else {
+        console.log('DOCUMENT', document);
         channel = document;
         return Post.find({ channel: channelId })
           .populate('channel author')
@@ -92,7 +87,9 @@ router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
       }
     })
     .then(posts => {
-      res.render('channel/single', { channel, posts });
+      console.log(sameUser);
+      user.toString() == channel.author._id.toString() ? (sameUser = true) : (sameUser = false);
+      res.render('channel/single', { channel, posts, sameUser });
     })
     .catch(error => {
       next(error);
