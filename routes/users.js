@@ -22,15 +22,20 @@ router.get('/login', (req, res) => {
 // user dashboard route
 router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
   let notes;
-  Note.find({ user: req.user.id }).then(documents => {
-    notes = documents;
-    return Note.find().populate('notes author');
-  });
+  Note.find({ user: req.user.id })
+    .limit(10)
+    .then(documents => {
+      notes = documents;
+      return Note.find().populate('notes author');
+    });
   let todos;
   Todo.find({ user: req.user.id })
+    .limit(10)
     .then(documents => {
       todos = documents;
-      return Note.find().populate('todos author');
+      return Note.find()
+        .populate('todos author')
+        .limit(10);
     })
     .then(posts => {
       res.render('users/dashboard', { posts, allNotes: notes, allTodos: todos });

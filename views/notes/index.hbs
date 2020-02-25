@@ -6,7 +6,7 @@
       <p>Creation date: {{ date creationDate 'DD/MM/YYYY' }}</p>
     <div class="notesContainer">
       <a class="btn mb-2 edit" href="/notes/edit/{{id}}"><i class="far fa-edit"></i></a>
-      <a class="btn btn-block mb-2" href="/notes/{{ note }}/{{ _id }}">View</a>
+      <a class="btn btn-block" href="/notes/{{ note }}/{{ _id }}">View</a>
       <form method="post" action="/notes/{{id}}?_method=DELETE">
         <input type="hidden" name="_method" value="DELETE">
         <input type="submit" class="btn btn-block mb-2 delete" value="X">
