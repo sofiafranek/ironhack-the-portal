@@ -148,6 +148,7 @@ button {
 
 .feed .card {
   margin: 25px 0;
+  min-width: 100%;
 }
 
 .feed .card h5 {
@@ -253,6 +254,18 @@ button {
 .flex {
   display: flex;
   justify-content: space-between;
+}
+
+.searchbar {
+  max-width: fit-content;
+  /* background-color: #e9ecef; */
+  padding: 15px;
+}
+
+.searchbar input {
+  line-height: 40px;
+  margin-right: 15px;
+  width: 500px;
 }
 
 .todos {

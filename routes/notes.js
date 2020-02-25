@@ -18,6 +18,29 @@ router.get('/', ensureAuthenticated, (req, res) => {
     }); // find something in DB
 });
 
+// Note index page after search query
+router.post('/search', ensureAuthenticated, (req, res) => {
+  let { search } = req.body;
+
+  Note.find({ user: req.user.id })
+    .sort({ creationDate: 'descending' })
+    .then(notes => {
+      let matched = notes.filter(notes => {
+        return (
+          notes.title.toLowerCase() === search.toLowerCase() ||
+          notes.title
+            .toLowerCase()
+            .split(' ')
+            .includes(search.toLowerCase())
+        );
+      });
+      console.log(matched);
+      res.render('notes/index', {
+        notes: matched
+      });
+    });
+});
+
 // add Note form
 router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('notes/add');
