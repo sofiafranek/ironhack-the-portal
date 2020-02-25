@@ -1,9 +1,9 @@
 <form action="/notes/search" method="post" class="searchbar">
-  <input type="text" id="search" name="search" placeholder="Search"/>
+  <input type="text" name="search" placeholder="Search"/>
   <button>Search</button>
 </form>
 
-<div class="container">
+<div class="container mb-5">
 {{#each notes}}
     <div class="card card-body mb-2 overflow">
       <h4>{{title}}</h4>

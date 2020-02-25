@@ -18,6 +18,28 @@ router.get('/', ensureAuthenticated, (req, res) => {
     });
 });
 
+// Note index page after search query
+router.post('/search', ensureAuthenticated, (req, res) => {
+  let { search } = req.body;
+
+  Todo.find({ user: req.user.id })
+    .sort({ creationDate: 'descending' })
+    .then(todos => {
+      let matched = todos.filter(todos => {
+        return (
+          todos.title.toLowerCase() === search.toLowerCase() ||
+          todos.title
+            .toLowerCase()
+            .split(' ')
+            .includes(search.toLowerCase())
+        );
+      });
+      res.render('todos/index', {
+        todos: matched
+      });
+    });
+});
+
 // add todo form
 router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('todos/add');

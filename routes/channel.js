@@ -29,6 +29,46 @@ router.get('/', ensureAuthenticated, (req, res, next) => {
     });
 });
 
+// Note index page after search query
+router.post('/search', ensureAuthenticated, (req, res) => {
+  let { search } = req.body;
+  let searchNothing;
+  let channels;
+
+  Channel.find()
+    .limit(10)
+    .then(documents => {
+      channels = documents;
+      return Post.find()
+        .populate('channel author')
+        .limit(20);
+    });
+  Post.find()
+    .populate('channel author')
+    .sort({ creationDate: 'descending' })
+    .then(posts => {
+      let matched = posts.filter(posts => {
+        return (
+          posts.title.toLowerCase() === search.toLowerCase() ||
+          posts.title
+            .toLowerCase()
+            .split(' ')
+            .includes(search.toLowerCase())
+        );
+      });
+      if (matched.length === 0) {
+        console.log('nothing');
+        searchNothing = true;
+      }
+      console.log(matched);
+      res.render('channel/home', {
+        posts: matched,
+        popularChannels: channels,
+        searchNothing
+      });
+    });
+});
+
 // the list of all channels page
 router.get('/allchannels', ensureAuthenticated, (req, res, next) => {
   let channels;

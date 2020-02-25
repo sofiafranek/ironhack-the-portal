@@ -1,5 +1,9 @@
 <div class="mt-3">
   <h3>Your feed</h3>
+  <form action="/channel/search" method="post" class="searchbar mb-3 mt-3">
+  <input type="text" name="search" placeholder="Search"/>
+  <button>Search</button>
+</form>
 </div>
 
 <main class="flex mb-5">
@@ -7,6 +11,9 @@
     {{#each posts}}
       {{>post}}
     {{/each}}
+    {{#if searchNothing}}
+      <p> There are no posts that match your search </p>
+    {{/if}}
   </section>
   <aside class="aside">
     <h3>Popular Channels</h3>

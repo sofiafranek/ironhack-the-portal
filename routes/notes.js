@@ -34,7 +34,6 @@ router.post('/search', ensureAuthenticated, (req, res) => {
             .includes(search.toLowerCase())
         );
       });
-      console.log(matched);
       res.render('notes/index', {
         notes: matched
       });

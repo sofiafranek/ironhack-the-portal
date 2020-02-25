@@ -258,8 +258,8 @@ button {
 
 .searchbar {
   max-width: fit-content;
-  /* background-color: #e9ecef; */
   padding: 15px;
+  padding-left: 0;
 }
 
 .searchbar input {
