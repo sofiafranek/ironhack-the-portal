@@ -3,7 +3,7 @@
   <span>></span>
   <span><a href="/channel/{{post.channel._id}}">{{post.channel.name}}</a></span>
   <span>></span>
-  <span>Post</span>
+  <span>{{post.title}}</span>
 </div>
 <article class="single-post">
   <h2 class="col-8">{{ post.title }}</h2>
@@ -23,11 +23,10 @@
 </article>
 
 <footer class="comment-form">
-  <h5>Comments</h5>
+  <h5>Comments</h5> 
 {{#each comments}}
     {{>comment}}
   {{/each}}
   
-  {{!-- <h6>Add a Comment</h6> --}}
   {{>commentform}}
 </footer>

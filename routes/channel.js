@@ -137,6 +137,15 @@ router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => 
       }
     })
     .then(comments => {
+      //loop through the comments and add a sameuser field to each comment
+      comments.map(comment => {
+        if (user.toString() == comment.author._id.toString()) {
+          comment.sameUser = true;
+        } else {
+          comment.sameUser = false;
+        }
+        return comment;
+      });
       user.toString() == post.author._id.toString() ? (sameUser = true) : (sameUser = false);
       res.render('channel/single-post', { post, comments, sameUser });
     })
@@ -220,9 +229,6 @@ router.post('/:channelId/post/:postId/comment', ensureAuthenticated, (req, res, 
   const { channelId, postId } = req.params;
   const { content } = req.body;
 
-  const user = req.user._id;
-  let sameUser;
-
   Post.findById(postId)
     .then(post => {
       if (!post) {
@@ -236,9 +242,6 @@ router.post('/:channelId/post/:postId/comment', ensureAuthenticated, (req, res, 
       }
     })
     .then(comment => {
-      console.log(user);
-      console.log(comment.author);
-      user.toString() == comment.author.toString() ? (sameUser = true) : (sameUser = false);
       res.redirect(`/channel/${channelId}/post/${postId}`);
     })
     .catch(error => {
@@ -258,8 +261,7 @@ router.post('/:postId/:commentId/delete', ensureAuthenticated, (req, res, next) 
     .then(() => {
       //then i will be removing the comment and redirecting the user
       Comment.findByIdAndDelete(commentId).then(() => {
-        // error is I can not pass same User to a redirect only a render
-        res.redirect(`/channel/${channelId}/post/${postId}`, { sameUser });
+        res.redirect(`/channel/${channelId}/post/${postId}`);
       });
     })
     .catch(error => {
