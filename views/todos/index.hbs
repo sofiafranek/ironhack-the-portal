@@ -1,16 +1,16 @@
 <div class="container flex">
 {{#each todos}}
-  <div class="card card-body mb-2 block">
+  <div class="card card-body mb-2 block overflow">
     <h4>{{title}}</h4>
-    <p>{{details}}</p>
     <p>Due date: {{dueDate}}</p>
-    <p>Creation date: {{ date creationDate 'DD/MM/YYYY' }}</p>
-    <a class="btn btn-block mb-2" href="/todos/edit/{{id}}">Edit</a>
+    {{!-- <p>Creation date: {{ date creationDate 'DD/MM/YYYY' }}</p> --}}
+    <p>{{details}}</p>
+    <a class="btn mb-2 edit" href="/todos/edit/{{id}}"><i class="far fa-edit"></i></a>
     <form method="post" action="/todos/{{id}}?_method=DELETE">
       <input type="hidden" name="_method" value="DELETE">
       <input type="submit" class="btn btn-block mb-2 delete" value="X">
     </form>
-    <a class="btn btn-block mb-2" href="/todos/{{ todo }}/{{ id }}">View</a>
+    <a class="btn btn-block mb-2 mt-3" href="/todos/{{ todo }}/{{ id }}">View</a>
   </div>
 {{else}}
   <p>No todos listed</p>

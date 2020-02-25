@@ -1,17 +1,18 @@
 <div class="container">
 {{#each notes}}
-  <div class="card card-body mb-2">
-    <h4>{{title}}</h4>
-    <p>Creation date: {{creationDate}}</p>
-  <div class="notesContainer">
-    <a class="btn btn-block mb-2" href="/notes/edit/{{id}}">Edit</a>
-    <a class="btn btn-block mb-2" href="/notes/{{ note }}/{{ _id }}">View</a>
-    <form method="post" action="/notes/{{id}}?_method=DELETE">
-      <input type="hidden" name="_method" value="DELETE">
-      <input type="submit" class="btn btn-block mb-2 delete" value="X">
-    </form>
-  </div>
-  </div>
+    <div class="card card-body mb-2 overflow">
+      <h4>{{title}}</h4>
+      <p>{{details}}</p>
+      <p>Creation date: {{ date creationDate 'DD/MM/YYYY' }}</p>
+    <div class="notesContainer">
+      <a class="btn mb-2 edit" href="/notes/edit/{{id}}"><i class="far fa-edit"></i></a>
+      <a class="btn btn-block mb-2" href="/notes/{{ note }}/{{ _id }}">View</a>
+      <form method="post" action="/notes/{{id}}?_method=DELETE">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" class="btn btn-block mb-2 delete" value="X">
+      </form>
+    </div>
+    </div>
 {{else}}
   <p>No notes listed</p>
 {{/each}}

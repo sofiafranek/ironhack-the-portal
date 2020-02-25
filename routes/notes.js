@@ -3,8 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const { ensureAuthenticated } = require('../helpers/auth');
 
-// load helper
-
 // load schema
 require('../models/Note');
 const Note = mongoose.model('Note');
