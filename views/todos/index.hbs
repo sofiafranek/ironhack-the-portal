@@ -3,20 +3,22 @@
   <button>Search</button>
 </form>
 
-<div class="container d-flex row justify-content-between mb-5">
+<div class="container d-flex row mb-5">
 {{#each todos}}
-  <div class="card card-body mb-2 col-5 overflow todos">
-      <h4>{{title}}</h4>
-      <p>Due date: {{dueDate}}</p>
-      {{!-- <p>Creation date: {{ date creationDate 'DD/MM/YYYY' }}</p> --}}
-      <p>{{details}}</p>
-    <a class="btn mb-2 edit" href="/todos/edit/{{id}}"><i class="far fa-edit"></i></a>
-    <form method="post" action="/todos/{{id}}?_method=DELETE">
-      <input type="hidden" name="_method" value="DELETE">
-      <input type="submit" class="btn btn-block mb-2 delete" value="X">
-    </form>
-    <a class="btn btn-block mt-3 viewButton" href="/todos/{{ todo }}/{{ id }}">View</a>
-  </div>
+  <a href="/todos/edit/{{id}}">
+    <div class="card card-body mb-2 col-auto overflow todos hvr-grow">
+        <h4>{{title}}</h4>
+        <p>Due date: {{dueDate}}</p>
+        <p>Status: {{ status }}</p>
+        <p class="details">{{details}}</p>
+      <a class="btn mb-2 edit" href="/todos/edit/{{id}}"><i class="far fa-edit"></i></a>
+      <form method="post" action="/todos/{{id}}?_method=DELETE">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" class="btn btn-block mb-2 delete" value="X">
+      </form>
+      <a class="btn btn-block mt-3 viewButton" href="/todos/{{ todo }}/{{ id }}">View</a>
+    </div>
+  </a>
 {{else}}
   <p>No todos listed</p>
 {{/each}}

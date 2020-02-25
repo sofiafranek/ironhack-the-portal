@@ -14,12 +14,14 @@ router.get('/', ensureAuthenticated, (req, res, next) => {
   let channels;
 
   Channel.find()
+    .sort({ creationDate: 'descending' })
     .limit(10)
     .then(documents => {
       channels = documents;
       return Post.find()
-        .populate('channel author')
-        .limit(20);
+        .sort({ creationDate: 'descending' })
+        .populate('channel author');
+      // .limit(20);
     })
     .then(posts => {
       res.render('channel/home', { posts, popularChannels: channels });

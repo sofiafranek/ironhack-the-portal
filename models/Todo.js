@@ -11,6 +11,11 @@ const TodoSchema = new Schema({
     type: String,
     required: true
   },
+  status: {
+    type: ['Completed', 'In Progress'],
+    default: 'In Progress',
+    required: true
+  },
   user: {
     type: String,
     required: true

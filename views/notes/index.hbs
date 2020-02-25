@@ -5,10 +5,11 @@
 
 <div class="container mb-5">
 {{#each notes}}
-    <div class="card card-body mb-2 overflow">
+  <a href="/notes/{{ note }}/{{ _id }}">
+    <div class="card card-body mb-2 overflow hvr-grow" style="display: block">
       <h4>{{title}}</h4>
-      <p>{{details}}</p>
       <p>Creation date: {{ date creationDate 'DD/MM/YYYY' }}</p>
+      <p class="details">{{details}}</p>
     <div class="notesContainer">
       <a class="btn mb-2 edit" href="/notes/edit/{{id}}"><i class="far fa-edit"></i></a>
       <a class="btn btn-block" href="/notes/{{ note }}/{{ _id }}">View</a>
@@ -18,6 +19,7 @@
       </form>
     </div>
     </div>
+  </a>
 {{else}}
   <p>No notes listed</p>
 {{/each}}

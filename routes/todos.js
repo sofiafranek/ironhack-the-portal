@@ -103,14 +103,16 @@ router.post('/', ensureAuthenticated, (req, res) => {
       errors: errors,
       title: req.body.title,
       details: req.body.details,
-      dueDate: req.body.duedate
+      dueDate: req.body.duedate,
+      status: req.body.status
     });
   } else {
     const newUser = {
       title: req.body.title,
       details: req.body.details,
       user: req.user.id,
-      dueDate: req.body.duedate
+      dueDate: req.body.duedate,
+      status: req.body.status
     };
     new Todo(newUser).save().then(todo => {
       req.flash('success_msg', 'Todo added');
@@ -128,6 +130,7 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
     todo.title = req.body.title;
     todo.details = req.body.details;
     todo.dueDate = req.body.duedate;
+    todo.status = req.body.status;
     todo.save().then(todo => {
       req.flash('success_msg', 'Todo updated');
       res.redirect('/todos');

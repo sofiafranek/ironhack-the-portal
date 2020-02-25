@@ -203,6 +203,18 @@ button {
   position: relative;
 }
 
+.profile-div {
+  margin: 20px 0;
+}
+
+.profile-div label {
+  margin-right: 20px;
+}
+
+.profile-div input {
+  min-width: 250px;
+}
+
 .create-channel div {
   margin-top: 25px;
 }
@@ -273,6 +285,10 @@ button {
   min-width: 550px;
 }
 
+.details {
+  font-family: 'Gordita';
+}
+
 .todoFlex {
   display: flex;
   flex-wrap: wrap;
@@ -331,6 +347,20 @@ button {
   padding: 20px 0;
 }
 
+nav i {
+  color: #597b99;
+  font-size: 1.2em;
+}
+
+nav button {
+  padding-top: 0;
+}
+
+/* .navbar-collapse {
+  border-top: 1px solid;
+  padding-top: 20px;
+} */
+
 .intro {
   text-align: center;
   margin: 100px 0;
@@ -342,7 +372,8 @@ button {
 
 .card-body {
   padding: 2em;
-  margin: 25px 0;
+  /* margin: 25px 0; */
+  margin: 25px 10px;
 }
 
 .card-body h3 {
@@ -392,6 +423,11 @@ button {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+.create-channel input {
+  min-width: 400px;
+  margin-left: 20px;
 }
 
 .post:hover {
@@ -484,8 +520,41 @@ button {
   animation-direction: normal, alternate;
 }
 
+@media (max-width: 927px) {
+  .feed {
+    width: 100%;
+    margin-right: 0;
+  }
+  .searchbar input {
+    width: auto;
+  }
+  .aside {
+    padding: 15px;
+    min-width: 100%;
+  }
+}
+
 @media (max-width: 980px) {
   .block {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 775px) {
+  .single-post h2 {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 608px) {
+  .create-channel input {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 580px) {
+  .todos {
+    min-width: calc(100%);
   }
 }

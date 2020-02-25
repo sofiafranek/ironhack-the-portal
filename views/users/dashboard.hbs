@@ -1,15 +1,20 @@
 <h2 class="mt-3">Hi {{user.name}} - this is your Dashboard</h2>
 <h6>Find all your recent activity and general settings for your account</h6>
 
-<div class="flex pt-3">
-  <div class="recentTodos card card-body col-6 mr-3">
+<h4 class="mt-5">General Settings</h4>
+<p>Username: {{user.name}}</p>
+<p>Email: {{user.email}}</p>
+<a href="/users/dashboard/profile"><button>Edit Settings</button></a>
+
+<div class="d-flex container row pt-3 justify-content-between">
+  <div class="recentTodos card card-body col-md-5">
   <h4>Recent todos</h4>
   {{#each allTodos}}
     <a href="/todos/{{ todo }}/{{ _id }}">{{title}}</a>
   {{/each}}
 </div>
 
-<div class="recentNotes card card-body col-6 ml-3">
+<div class="recentNotes card card-body col-md-5">
   <h4>Recent notes</h4>
   {{#each allNotes}}
     <a href="/notes/{{ note }}/{{ _id }}">{{title}}</a>

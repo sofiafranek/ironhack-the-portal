@@ -23,6 +23,7 @@ router.get('/login', (req, res) => {
 router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
   let notes;
   Note.find({ user: req.user.id })
+    .sort({ creationDate: 'descending' })
     .limit(10)
     .then(documents => {
       notes = documents;
@@ -30,6 +31,7 @@ router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
     });
   let todos;
   Todo.find({ user: req.user.id })
+    .sort({ creationDate: 'descending' })
     .limit(10)
     .then(documents => {
       todos = documents;
@@ -39,6 +41,29 @@ router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
     })
     .then(posts => {
       res.render('users/dashboard', { posts, allNotes: notes, allTodos: todos });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+// user to go to edit profile page
+router.get('/dashboard/profile', ensureAuthenticated, (req, res) => {
+  res.render('users/profile');
+});
+
+// edit profile post results
+router.post('/dashboard/profile', ensureAuthenticated, (req, res) => {
+  const userId = req.user._id;
+  const { name, email } = req.body;
+
+  User.findByIdAndUpdate(userId, {
+    name,
+    email
+  })
+    .then(() => {
+      req.flash('success_msg', 'New profile settings updated');
+      res.redirect('/users/dashboard');
     })
     .catch(error => {
       next(error);
@@ -69,7 +94,7 @@ router.post('/register', (req, res) => {
     errors.push({ text: 'Password must be at least 4 characters' });
   }
   if (errors.length > 0) {
-    res.render('users/register', {
+    res.render('users/login', {
       errors: errors,
       name: req.body.name,
       email: req.body.email,
