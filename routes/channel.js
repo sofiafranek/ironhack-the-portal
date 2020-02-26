@@ -31,7 +31,7 @@ router.get('/', ensureAuthenticated, (req, res, next) => {
     });
 });
 
-// Note index page after search query
+// Channel index page after search query
 router.post('/search', ensureAuthenticated, (req, res) => {
   let { search } = req.body;
   let searchNothing;
@@ -81,6 +81,30 @@ router.get('/allchannels', ensureAuthenticated, (req, res, next) => {
     })
     .then(posts => {
       res.render('channel/list', { posts, allChannels: channels });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+// the list of all channels page
+router.post('/allchannels/search', ensureAuthenticated, (req, res, next) => {
+  let { channelsearch } = req.body;
+  let channels;
+
+  Channel.find()
+    .then(documents => {
+      channels = documents;
+      let matched = channels.filter(channels => {
+        return (
+          channels.name.toLowerCase() === channelsearch.toLowerCase() ||
+          channels.name
+            .toLowerCase()
+            .split(' ')
+            .includes(channelsearch.toLowerCase())
+        );
+      });
+      res.render('channel/list', { allChannels: matched });
     })
     .catch(error => {
       next(error);

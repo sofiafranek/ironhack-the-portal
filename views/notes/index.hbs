@@ -6,7 +6,7 @@
 <div class="container mb-5">
 {{#each notes}}
   <a href="/notes/{{ note }}/{{ _id }}">
-    <div class="card card-body mb-2 overflow hvr-grow" style="display: block">
+    <div class="card mb-2 overflow hvr-grow cardNote">
       <h4>{{title}}</h4>
       <p>Creation date: {{ date creationDate 'DD/MM/YYYY' }}</p>
       <p class="details">{{details}}</p>

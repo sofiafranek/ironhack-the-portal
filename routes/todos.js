@@ -18,6 +18,23 @@ router.get('/', ensureAuthenticated, (req, res) => {
     });
 });
 
+// Todo Index Page but filtered
+router.post('/filtered', ensureAuthenticated, (req, res) => {
+  let { filtered } = req.body;
+
+  Todo.find({ user: req.user.id })
+    .sort({ creationDate: 'descending' })
+    .then(todos => {
+      let filter = todos.filter(todos => {
+        return todos.status.toString() === filtered;
+      });
+
+      res.render('todos/index', {
+        todos: filter
+      });
+    });
+});
+
 // Note index page after search query
 router.post('/search', ensureAuthenticated, (req, res) => {
   let { search } = req.body;

@@ -15,14 +15,14 @@
       <label for="duedate">Due Date</label>
       <input class="form-control" name="duedate" type="text" value="{{todo.dueDate}}">
     </div>
-        <div class="form-group">
-          <label for="status">Select a status type:</label>
-          <select name="status" id="status">
-              <option value="">--Please choose an option--</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
-          </select>
-        </div>
+    <div class="form-group">
+      <label for="status">Select a status type:</label>
+      <select name="status" id="status" class="custom-select">
+          <option value="">--Please choose an option--</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+      </select>
+    </div>
     <div class="form-group">
       <label for="details">Details</label>
       <textarea class="form-control" name="details" rows="5" required>{{todo.details}}</textarea>

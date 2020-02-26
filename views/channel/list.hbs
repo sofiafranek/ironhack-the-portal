@@ -4,7 +4,13 @@
     <span>></span>
     <span>All Channels</span>
   </div>
+
   <h1> Find here all of the channels </h1>
+
+  <form action="/channel/allchannels/search" method="post" class="searchbar">
+    <input type="text" name="channelsearch" placeholder="Search"/>
+    <button>Search</button>
+  </form>
 
   {{#each allChannels}}
     <li></li><a href="/channel/{{ _id }}">{{ name }}</a></li>

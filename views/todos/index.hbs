@@ -1,7 +1,19 @@
-<form action="/todos/search" method="post" class="searchbar">
-  <input type="text" name="search" placeholder="Search"/>
-  <button>Search</button>
-</form>
+<div class="d-flex relative">
+  <form action="/todos/search" method="post" class="searchbar col-auto">
+    <input type="text" name="search" placeholder="Search"/>
+    <button>Search</button>
+  </form>
+
+  <form action="/todos/filtered" method="post" class="col-auto todofilter">
+      <select name="filtered" id="filtered" class="custom-select">
+        <option selected value="">--Sort by status--</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <button>Filter</button>
+  </form>
+
+</div>
 
 <div class="container d-flex row mb-5">
 {{#each todos}}
