@@ -12,18 +12,29 @@ const { ensureAuthenticated } = require('../helpers/auth');
 // rendering the main feed page
 router.get('/', ensureAuthenticated, (req, res, next) => {
   let channels;
+  let allComments;
 
   Channel.find()
     .sort({ creationDate: 'descending' })
     .limit(10)
     .then(documents => {
       channels = documents;
+      return Comment.find();
+    })
+    .then(comments => {
+      allComments = comments;
       return Post.find()
         .sort({ creationDate: 'descending' })
         .populate('channel author');
-      // .limit(20);
     })
     .then(posts => {
+      posts.map(singlePost => {
+        let count = 0;
+        allComments.map(comment => {
+          return comment.post.toString() === singlePost._id.toString() ? count++ : count;
+        });
+        return (singlePost.commentsCount = count);
+      });
       res.render('channel/home', { posts, popularChannels: channels });
     })
     .catch(error => {
@@ -131,10 +142,41 @@ router.post('/create', ensureAuthenticated, (req, res, next) => {
     });
 });
 
+// let channels;
+// let allComments;
+
+// Channel.find()
+//   .sort({ creationDate: 'descending' })
+//   .limit(10)
+//   .then(documents => {
+//     channels = documents;
+//     return Comment.find();
+//   })
+//   .then(comments => {
+//     allComments = comments;
+//     return Post.find()
+//       .sort({ creationDate: 'descending' })
+//       .populate('channel author');
+//   })
+//   .then(posts => {
+//     posts.map(singlePost => {
+//       let count = 0;
+//       allComments.map(comment => {
+//         return comment.post.toString() === singlePost._id.toString() ? count++ : count;
+//       });
+//       return (singlePost.commentsCount = count);
+//     });
+//     res.render('channel/home', { posts, popularChannels: channels });
+//   })
+//   .catch(error => {
+//     next(error);
+//   });
+
 // when user wants to view the channel and all the posts created in that channel appear too
 router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
   const user = req.user._id;
   let sameUser;
+  let allComments;
 
   const channelId = req.params.channelId;
 
@@ -146,13 +188,26 @@ router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
         next(new Error('NOT_FOUND'));
       } else {
         channel = document;
-        return Post.find({ channel: channelId })
-          .populate('channel author')
-          .limit(50);
+        return Comment.find().then(comments => {
+          allComments = comments;
+          return Post.find()
+            .sort({ creationDate: 'descending' })
+            .populate('channel author');
+        });
       }
+      return Post.find({ channel: channelId })
+        .populate('channel author')
+        .limit(50);
     })
     .then(posts => {
       user.toString() == channel.author._id.toString() ? (sameUser = true) : (sameUser = false);
+      posts.map(singlePost => {
+        let count = 0;
+        allComments.map(comment => {
+          return comment.post.toString() === singlePost._id.toString() ? count++ : count;
+        });
+        return (singlePost.commentsCount = count);
+      });
       res.render('channel/single', { channel, posts, sameUser });
     })
     .catch(error => {
