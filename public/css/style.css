@@ -205,6 +205,10 @@ button {
   padding: 2em;
 }
 
+small span {
+  margin: 0px 7px;
+}
+
 .relative {
   position: relative;
 }

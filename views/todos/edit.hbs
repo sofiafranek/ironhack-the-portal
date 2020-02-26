@@ -13,13 +13,13 @@
     </div>
     <div class="form-group">
       <label for="duedate">Due Date</label>
-      <input class="form-control" name="duedate" type="text" value="{{todo.dueDate}}">
+      <input class="form-control" name="duedate" type="date" value="{{todo.dueDate}}">
     </div>
     <div class="form-group">
       <label for="status">Select a status type:</label>
       <select name="status" id="status" class="custom-select">
           <option value="">--Please choose an option--</option>
-          <option value="In Progress">In Progress</option>
+          <option selected value="In Progress">In Progress</option>
           <option value="Completed">Completed</option>
       </select>
     </div>
