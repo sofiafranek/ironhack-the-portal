@@ -70,10 +70,8 @@ router.post('/search', ensureAuthenticated, (req, res) => {
         );
       });
       if (matched.length === 0) {
-        console.log('nothing');
         searchNothing = true;
       }
-      console.log(matched);
       res.render('channel/home', {
         posts: matched,
         popularChannels: channels,
@@ -149,7 +147,6 @@ router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
   let allComments;
 
   const channelId = req.params.channelId;
-  //console.log('this is channel ID', channelId);
 
   let channel;
 
@@ -158,14 +155,12 @@ router.get('/:channelId', ensureAuthenticated, (req, res, next) => {
       if (!document) {
         next(new Error('NOT_FOUND'));
       } else {
-        //console.log('this is channel details', document);
         channel = document;
         return Comment.find().then(comments => {
           allComments = comments;
           return Post.find({ channel: channelId })
             .populate('channel author')
-            .sort({ creationDate: 'descending' })
-            .limit(50);
+            .sort({ creationDate: 'descending' });
         });
       }
     })
@@ -268,8 +263,9 @@ router.get('/:channelId/post/:postId/edit', ensureAuthenticated, (req, res, next
 // route to delete a post
 router.post('/:channelId/post/:postId/delete', ensureAuthenticated, (req, res, next) => {
   const { postId } = req.params;
-  Post.findOneAndDelete(postId)
+  Post.findOneAndDelete({ _id: postId })
     .then(post => {
+      req.flash('success_msg', 'Post deleted');
       res.redirect(`/channel`);
     })
     .catch(error => {
@@ -281,9 +277,10 @@ router.post('/:channelId/post/:postId/delete', ensureAuthenticated, (req, res, n
 router.post('/:channelId/delete', ensureAuthenticated, (req, res, next) => {
   const { channelId } = req.params;
 
-  Channel.deleteOne().then(post => {
-    Post.findOneAndDelete(channelId)
+  Channel.findOneAndDelete({ _id: channelId }).then(post => {
+    Post.deleteMany({ channel: channelId })
       .then(post => {
+        req.flash('success_msg', 'Channel deleted including all posts in that channel');
         res.redirect(`/channel`);
       })
       .catch(error => {

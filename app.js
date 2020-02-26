@@ -24,11 +24,7 @@ hbs.registerHelper('date', handlebarsHelperDate);
 // passport config
 require('./config/passport')(passport);
 
-// db config
-const db = require('./config/database');
-
 // connect to mongoose
-
 mongoose
   .connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
