@@ -91,7 +91,7 @@ app.use('/todos', todos);
 app.use('/notes', notes);
 app.use('/channel', channels);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
