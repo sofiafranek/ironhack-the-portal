@@ -199,6 +199,21 @@ button {
   padding-top: 0;
 }
 
+.modalbutton {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+}
+
+.modaldelete {
+  margin: 0 !important;
+  min-width: 120px;
+  max-width: 120px;
+  float: right;
+  background-color: #264c6e;
+  color: white;
+}
+
 .cardNote {
   display: block !important;
   margin: 25px 0px;

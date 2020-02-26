@@ -155,6 +155,16 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
   });
 });
 
+// add todo form
+router.post('/:id/delete', ensureAuthenticated, (req, res) => {
+  Todo.findOneAndDelete({
+    _id: req.params.id
+  }).then(todo => {
+    req.flash('success_msg', 'Todo removed');
+    res.redirect('/todos');
+  });
+});
+
 // delete Todo
 router.delete('/:id', ensureAuthenticated, (req, res) => {
   Todo.deleteMany({
