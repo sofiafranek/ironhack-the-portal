@@ -133,6 +133,16 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
   });
 });
 
+// delete a note with modal
+router.post('/:id/delete', ensureAuthenticated, (req, res) => {
+  Note.findOneAndDelete({
+    _id: req.params.id
+  }).then(note => {
+    req.flash('success_msg', 'Note removed');
+    res.redirect('/notes');
+  });
+});
+
 // delete Note
 router.delete('/:id', ensureAuthenticated, (req, res) => {
   Note.deleteMany({

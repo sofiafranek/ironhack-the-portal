@@ -26,6 +26,9 @@ router.post('/filtered', ensureAuthenticated, (req, res) => {
     .sort({ creationDate: 'descending' })
     .then(todos => {
       let filter = todos.filter(todos => {
+        if (filtered === 'All') {
+          return todos.status.toString();
+        }
         return todos.status.toString() === filtered;
       });
 
@@ -155,7 +158,7 @@ router.put('/:id', ensureAuthenticated, (req, res) => {
   });
 });
 
-// add todo form
+// delete a todo with modal
 router.post('/:id/delete', ensureAuthenticated, (req, res) => {
   Todo.findOneAndDelete({
     _id: req.params.id
