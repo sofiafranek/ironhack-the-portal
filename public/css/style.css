@@ -205,10 +205,15 @@ button {
   top: 25px;
 }
 
+.extra-delete {
+  right: 190px !important;
+  line-height: 44px !important;
+}
+
 .modaldelete {
   margin: 0 !important;
-  min-width: 120px;
-  max-width: 120px;
+  min-width: 170px;
+  max-width: 170px;
   float: right;
   background-color: #264c6e;
   color: white;
@@ -473,7 +478,7 @@ nav button {
 
 /* Grow */
 .hvr-grow {
-  display: inline-block;
+  /* display: inline-block; */
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);

@@ -5,12 +5,40 @@
   <span>></span>
   <span>{{post.title}}</span>
 </div>
+
+{{!-- {{#if sameUser}}
+  <!-- Modal -->
+  <div class="modal fade" id="sameUser-{{post._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this post?
+        </div>
+        <div class="modal-footer">
+        <form method="post" action="/channel/{{post.channel._id}}/post/{{post._id}}/delete" class="delete-button">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="submit" class="btn btn-block mb-2 modaldelete" value="Delete Post">
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}} --}}
+
 <article class="single-post">
   <h2 class="col-8">{{ post.title }}</h2>
   {{#if sameUser}}
   <a href="/channel/{{ post.channel._id }}/post/{{ post._id }}/edit" class="edit-button">
     <button>Edit Post</button>
   </a>
+ <!-- Button trigger modal -->
+  {{!-- <button class="btn mb-2 post-delete delete-button" data-toggle="modal" data-target="#sameUser-{{post._id}}"> Delete Post </button> --}}
   <form method="post" action="/channel/{{post.channel._id}}/post/{{post._id}}/delete" class="delete-button">
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" class="btn mb-2 post-delete" value="Delete Post">

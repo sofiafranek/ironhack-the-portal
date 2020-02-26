@@ -9,6 +9,8 @@ const hbs = require('hbs');
 const app = express();
 const passport = require('passport');
 
+require('dotenv').config();
+
 // load routes
 const todos = require('./routes/todos');
 const users = require('./routes/users');
@@ -26,8 +28,9 @@ require('./config/passport')(passport);
 const db = require('./config/database');
 
 // connect to mongoose
+
 mongoose
-  .connect(db.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected...');
   })
