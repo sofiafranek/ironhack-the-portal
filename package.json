@@ -4,7 +4,7 @@
   "description": "Hello-To-Do-Application",
   "main": "app.js",
   "scripts": {
-    "start": "node.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
