@@ -6,19 +6,39 @@
       <input type="text" name="name" placeholder="Your Name" value="{{ user.name }}">
   </div>
 
+
+  <div class="profile-div">
+      <label for="usertype-select">Select a user type:</label>
+      <select name="usertype" id="usertype-select">
+        {{#select user.usertype}}
+        <option value="Student">Student</option>
+        <option value="Teacher Assistant">Teacher Assistant</option>
+        <option value="Teacher">Teacher</option>
+        {{/select}}
+      </select>
+  </div>
+
+  <div class="profile-div">
+      <label for="input-name">Campus</label>
+      <input type="text" name="campus" placeholder="Your Campus" value="{{ user.campus }}">
+  </div>
+      <small>Please type the city and country of your campus (e.g. Lisbon, Portugal)</small>
+
+  <div class="profile-div">
+      <label for="input-name">Cohort</label>
+      <input type="text" name="cohort" placeholder="Your Cohort" value="{{ user.cohort }}">
+  </div>
+      <small>Please type your cohort with the start month and year (e.g. Jan 2020)</small>
+
+
   <div class="profile-div">
       <label for="input-name">Email</label>
       <input type="text" name="email" placeholder="Your Email" value="{{ user.email }}">
   </div>
 
-  <div class="profile-div">
-      <label for="usertype-select">Select a user type:</label>
-      <select name="usertype" id="usertype-select">
-          <option value="Undefined">--Please choose an option--</option>
-          <option value="Student">Student</option>
-          <option value="Teacher Assistant">Teacher Assistant</option>
-          <option value="Teacher">Teacher</option>
-      </select>
+<div class="profile-div">
+      <label for="input-name">Number</label>
+      <input type="text" name="number" placeholder="Your Phone Number" value="{{ user.number }}">
   </div>
 
   <button>Edit Profile</button>

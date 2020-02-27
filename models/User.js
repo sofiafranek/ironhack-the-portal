@@ -17,6 +17,18 @@ const UserSchema = new Schema(
       default: 'Undefined',
       required: true
     },
+    number: {
+      type: String,
+      default: 'None listed'
+    },
+    campus: {
+      type: String,
+      default: 'None listed'
+    },
+    cohort: {
+      type: String,
+      default: 'None listed'
+    },
     password: {
       type: String,
       required: true

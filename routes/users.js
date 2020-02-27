@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
+const hbs = require('hbs');
+
 const { ensureAuthenticated } = require('../helpers/auth');
 
 // load user model
@@ -14,6 +16,17 @@ const Todo = mongoose.model('Todo');
 require('../models/Note');
 const Note = mongoose.model('Note');
 
+hbs.registerHelper('select', function(value, options) {
+  return options
+    .fn(this)
+    .split('\n')
+    .map(function(v) {
+      let t = 'value="' + value + '"';
+      return !RegExp(t).test(v) ? v : v.replace(t, t + ' selected="selected"');
+    })
+    .join('\n');
+});
+
 // user login route
 router.get('/login', (req, res) => {
   res.render('users/login');
@@ -21,33 +34,12 @@ router.get('/login', (req, res) => {
 
 // user dashboard route
 router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
-  // let private = false
-  // If teacher or Ta in req.user.usertype array : private === true
-  let private =
-    req.user.usertype.toString() === 'Teacher Assitant' || 'Teacher'
-      ? (private = true)
-      : (private = false);
+  let private;
 
-  // User.find().then(user => {
-  //   user.filter(user => {
-  //     console.log(req.user.id && user._id ? user.usertype.toString() : false);
-  //     let usertype = req.user.id && user.id ? user.usertype.toString() : false;
-  //     return usertype;
-  //   });
-  //   if (usertype === 'Student') {
-  //     console.log('student');
-  //     return (private = false);
-  //   } else if (usertype === 'Teacher Assistant') {
-  //     console.log('teacher assistant');
-  //     return (private = true);
-  //   } else if (usertype === 'Undefined') {
-  //     console.log('undefined');
-  //     return (private = false);
-  //   } else if (usertype === 'Teacher') {
-  //     console.log('teacher');
-  //     return (private = true);
-  //   }
-  // });
+  if (req.user.usertype) {
+    private = req.user.usertype.toString() === 'Teacher' ? true : false;
+  }
+
   let notes;
   Note.find({ user: req.user.id })
     .sort({ creationDate: 'descending' })
@@ -81,33 +73,108 @@ router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
 
 // user to go to edit profile page
 router.get('/private', ensureAuthenticated, (req, res) => {
-  User.findOne()
+  let private;
+
+  if (req.user.usertype) {
+    private = req.user.usertype.toString() === 'Teacher' ? true : false;
+  }
+
+  let user;
+  User.find()
     .then(documents => {
-      console.log(documents);
-      documents.map(doc => {
-        console.log(doc);
-        return doc;
-      });
+      user = documents;
+      return user;
     })
-    .then(() => {
-      res.render('users/private');
+    .then(user => {
+      res.render('users/private', { allUsers: user, privatePage: private });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+// the list of all users page
+router.post('/private/search', ensureAuthenticated, (req, res, next) => {
+  let private;
+
+  if (req.user.usertype) {
+    private = req.user.usertype.toString() === 'Teacher' ? true : false;
+  }
+
+  let { usersearch } = req.body;
+  let users;
+
+  User.find()
+    .then(documents => {
+      users = documents;
+      let matched = users.filter(users => {
+        return (
+          users.name.toLowerCase() === usersearch.toLowerCase() ||
+          users.name
+            .toLowerCase()
+            .split(' ')
+            .includes(usersearch.toLowerCase())
+        );
+      });
+      res.render('users/private', { allUsers: matched, privatePage: private });
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+// Private Page but filtered
+router.post('/private/filtered', ensureAuthenticated, (req, res) => {
+  let private;
+
+  if (req.user.usertype) {
+    private = req.user.usertype.toString() === 'Teacher' ? true : false;
+  }
+
+  let { filtered } = req.body;
+
+  User.find()
+    .sort({ creationDate: 'descending' })
+    .then(users => {
+      let filter = users.filter(users => {
+        if (filtered === 'All') {
+          return users.usertype.toString();
+        }
+        return users.usertype.toString() === filtered;
+      });
+
+      res.render('users/private', {
+        allUsers: filter,
+        privatePage: private
+      });
     });
 });
 
 // user to go to edit profile page
 router.get('/dashboard/profile', ensureAuthenticated, (req, res) => {
-  res.render('users/profile');
+  console.log('REQ.USER', req.user);
+  console.log('REQ TYPE', req.user.usertype.toString());
+
+  let data = {
+    states: ['Student', 'Teacher Assistant', 'Teacher'],
+    userType: req.user.usertype.toString()
+  };
+  // let array = ['Student', 'Teacher Assistant', 'Teacher'];
+  res.render('users/profile', data);
 });
 
 // edit profile post results
-router.post('/dashboard/profile', ensureAuthenticated, (req, res) => {
+router.post('/dashboard/profile', ensureAuthenticated, (req, res, next) => {
   const userId = req.user._id;
-  const { name, email, usertype } = req.body;
+  const { name, email, usertype, number, campus, cohort } = req.body;
 
   User.findByIdAndUpdate(userId, {
     name,
     email,
-    usertype
+    usertype,
+    number,
+    campus,
+    cohort
   })
     .then(() => {
       req.flash('success_msg', 'New profile settings updated');

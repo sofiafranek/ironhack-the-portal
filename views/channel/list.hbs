@@ -14,5 +14,8 @@
 
   {{#each allChannels}}
     <li></li><a href="/channel/{{ _id }}">{{ name }}</a></li>
+      {{else}}
+      No users matched your search
+      <a href="/channel/allchannels">See all again</a>
   {{/each}}
 </main>

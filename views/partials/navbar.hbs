@@ -1,5 +1,10 @@
 <nav class="navbar navbar-expand-sm mb-2">
-      <a class="navbar-brand" href="/">IronSurvivor</a>
+      <p class="navbar-brand nav-link logo">IronSurvivor</p>
+      {{#if privatePage}}
+          <a href="/users/private" class="nav-link archive">
+            <span class="space"> | </span> Archive
+          </a>
+      {{/if}}
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars"></i>
       </button>
@@ -13,13 +18,6 @@
                 Dashboard
               </a>
             </li>
-          {{#if privatePage}}
-            <li class="nav-item dashboard">
-              <a href="/users/private" class="nav-link">
-                Private
-              </a>
-            </li>
-          {{/if}}
             <li class="nav-item dropdown">
               <a href="#" 
                 class="nav-link dropdown-toggle" 
