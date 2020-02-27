@@ -10,6 +10,8 @@
   <section class="feed">
     {{#each posts}}
       {{>post}}
+      {{else}}
+      <p class="noListed">No posts created</p>
     {{/each}}
     {{#if searchNothing}}
       <p> There are no posts that match your search </p>
@@ -20,6 +22,8 @@
     <ul>
       {{#each popularChannels}}
         <li><a href="/channel/{{ _id }}">{{ name }}</a></li>
+          {{else}}
+          <p>No channels created</p>
       {{/each}}
     </ul>
     <a href="/channel/allchannels" class="btn mb-2 pl-0">

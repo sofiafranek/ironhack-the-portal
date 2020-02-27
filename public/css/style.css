@@ -167,9 +167,10 @@ button {
 .commentX {
   padding: 10px 15px 5px;
   border: 2px solid;
+  background-color: #264c6e;
 }
 
-.comment-item form {
+.comment-item button {
   max-width: fit-content;
   position: absolute;
   right: 0;
@@ -414,8 +415,28 @@ nav button {
 
 .card-body {
   padding: 2em;
-  /* margin: 25px 0; */
   margin: 25px 10px;
+}
+
+.noListed {
+  margin-left: 15px;
+}
+
+.alert {
+  margin-bottom: 2rem;
+}
+
+.space {
+  margin: 0 10px;
+}
+
+.commentForm {
+  margin: 25px 0px;
+  padding: 2em;
+}
+
+.commentForm textarea {
+  border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .card-body h3 {

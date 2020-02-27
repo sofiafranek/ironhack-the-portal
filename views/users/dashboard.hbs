@@ -11,13 +11,20 @@
   <h4>Recent todos</h4>
   {{#each allTodos}}
     <a href="/todos/{{ todo }}/{{ _id }}">{{title}}</a>
+  {{else}}
+  <p>No todos created</p>
   {{/each}}
 </div>
 
 <div class="recentNotes card card-body col-md-5">
   <h4>Recent notes</h4>
+  {{#each noNotes}}
+    <p>You have no notes</p>
+  {{/each}}
   {{#each allNotes}}
     <a href="/notes/{{ note }}/{{ _id }}">{{title}}</a>
+  {{else}}
+  <p>No notes created</p>
   {{/each}}
 </div>
 </div>

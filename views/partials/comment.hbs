@@ -1,10 +1,31 @@
+<!-- Modal for comments -->
+<div class="modal fade" id="commentModal-{{post}}-{{_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Comment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this comment?
+      </div>
+      <div class="modal-footer">
+      <form method="post" action="/channel/{{post}}/{{_id}}/delete">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" class="btn btn-block mb-2 modaldelete" value="Delete">
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="comment-item">
   <small><a href="/profile/{{ author._id }}">{{ author.name }}</a></small>
   <p>{{ content }}</p>
     {{#if sameUser}}
-    <form method="post" action="/channel/{{post}}/{{ _id }}/delete">
-      <input type="hidden" name="_method" value="DELETE">
-      <input type="submit" class="btn commentX" value="X">
-    </form>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn commentX" data-toggle="modal" data-target="#commentModal-{{post}}-{{_id}}">X</button>
     {{/if}} 
 </div>

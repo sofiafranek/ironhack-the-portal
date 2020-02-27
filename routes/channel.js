@@ -349,6 +349,7 @@ router.post('/:postId/:commentId/delete', ensureAuthenticated, (req, res, next) 
     .then(() => {
       //then i will be removing the comment and redirecting the user
       Comment.findByIdAndDelete(commentId).then(() => {
+        req.flash('success_msg', 'Comment deleted');
         res.redirect(`/channel/${channelId}/post/${postId}`);
       });
     })
