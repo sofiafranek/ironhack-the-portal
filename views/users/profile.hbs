@@ -11,5 +11,15 @@
       <input type="text" name="email" placeholder="Your Email" value="{{ user.email }}">
   </div>
 
+  <div class="profile-div">
+      <label for="usertype-select">Select a user type:</label>
+      <select name="usertype" id="usertype-select">
+          <option value="Undefined">--Please choose an option--</option>
+          <option value="Student">Student</option>
+          <option value="Teacher Assistant">Teacher Assistant</option>
+          <option value="Teacher">Teacher</option>
+      </select>
+  </div>
+
   <button>Edit Profile</button>
 </form>

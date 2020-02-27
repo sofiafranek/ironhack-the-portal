@@ -21,6 +21,11 @@ router.get('/login', (req, res) => {
 
 // user dashboard route
 router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
+  let testing =
+    req.user.usertype.toString() === 'Teacher Assitant' || 'Teacher'
+      ? (private = true)
+      : (private = false);
+
   let notes;
   Note.find({ user: req.user.id })
     .sort({ creationDate: 'descending' })
@@ -40,11 +45,26 @@ router.get('/dashboard', ensureAuthenticated, (req, res, next) => {
         .limit(10);
     })
     .then(posts => {
-      res.render('users/dashboard', { posts, allNotes: notes, allTodos: todos });
+      res.render('users/dashboard', {
+        posts,
+        allNotes: notes,
+        allTodos: todos,
+        privatePage: private
+      });
     })
     .catch(error => {
       next(error);
     });
+});
+
+// user to go to edit profile page
+router.get('/private', ensureAuthenticated, (req, res) => {
+  // let testing =
+  //   req.user.usertype.toString() === 'Teacher Assitant' || 'Teacher'
+  //     ? (private = true)
+  //     : (private = false);
+
+  res.render('users/private');
 });
 
 // user to go to edit profile page
@@ -55,11 +75,12 @@ router.get('/dashboard/profile', ensureAuthenticated, (req, res) => {
 // edit profile post results
 router.post('/dashboard/profile', ensureAuthenticated, (req, res) => {
   const userId = req.user._id;
-  const { name, email } = req.body;
+  const { name, email, usertype } = req.body;
 
   User.findByIdAndUpdate(userId, {
     name,
-    email
+    email,
+    usertype
   })
     .then(() => {
       req.flash('success_msg', 'New profile settings updated');

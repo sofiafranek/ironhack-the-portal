@@ -13,6 +13,13 @@
                 Dashboard
               </a>
             </li>
+          {{#if privatePage}}
+            <li class="nav-item dashboard">
+              <a href="/users/private" class="nav-link">
+                Private
+              </a>
+            </li>
+          {{/if}}
             <li class="nav-item dropdown">
               <a href="#" 
                 class="nav-link dropdown-toggle" 

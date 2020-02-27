@@ -185,27 +185,6 @@ router.get('/:channelId/post/create', ensureAuthenticated, (req, res, next) => {
   res.render('channel/create-post');
 });
 
-// create a single post
-router.post('/:channelId/post/create', ensureAuthenticated, (req, res, next) => {
-  const { title, content } = req.body;
-  const { channelId } = req.params;
-
-  const author = req.user._id;
-
-  Post.create({
-    title,
-    content,
-    channel: channelId,
-    author
-  })
-    .then(post => {
-      res.redirect(`/channel/${post.channel}/post/${post._id}`);
-    })
-    .catch(error => {
-      next(error);
-    });
-});
-
 // to view the single post view
 router.get('/:channelId/post/:postId', ensureAuthenticated, (req, res, next) => {
   const { postId } = req.params;
@@ -260,6 +239,27 @@ router.get('/:channelId/post/:postId/edit', ensureAuthenticated, (req, res, next
     });
 });
 
+// create a single post
+router.post('/:channelId/post/create', ensureAuthenticated, (req, res, next) => {
+  const { title, content } = req.body;
+  const { channelId } = req.params;
+  const author = req.user._id;
+
+  Post.create({
+    title,
+    content,
+    channel: channelId,
+    author
+  })
+    .then(post => {
+      req.flash('success_msg', 'Post added');
+      res.redirect(`/channel/${post.channel}/post/${post._id}`);
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
 // route to delete a post
 router.post('/:channelId/post/:postId/delete', ensureAuthenticated, (req, res, next) => {
   const { postId } = req.params;
@@ -305,6 +305,7 @@ router.post('/:channelId/post/:postId/edit', ensureAuthenticated, (req, res, nex
     }
   )
     .then(() => {
+      req.flash('success_msg', 'Post edited');
       res.redirect(`/channel/${channelId}/post/${postId}`);
     })
     .catch(error => {

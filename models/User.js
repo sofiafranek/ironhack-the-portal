@@ -12,10 +12,11 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
-    // usertype: {
-    //   type: String,
-    //   required: true
-    // },
+    usertype: {
+      type: ['Student', 'Teacher Assistant', 'Teacher'],
+      default: 'Undefined',
+      required: true
+    },
     password: {
       type: String,
       required: true
