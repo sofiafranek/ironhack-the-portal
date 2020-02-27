@@ -3,9 +3,9 @@
 const { Router } = require('express');
 const router = new Router();
 
-const Channel = require('./../models/channel');
-const Post = require('./../models/post');
-const Comment = require('./../models/comment');
+const Channel = require('./../models/Channel');
+const Post = require('./../models/Post');
+const Comment = require('./../models/Comment');
 
 const { ensureAuthenticated } = require('../helpers/auth');
 
