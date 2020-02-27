@@ -1,6 +1,6 @@
 <h1>Edit Profile</h1>
 
-<form method="POST">
+<form method="POST" class="pb-5">
   <div class="profile-div">
       <label for="input-name">Name</label>
       <input type="text" name="name" placeholder="Your Name" value="{{ user.name }}">
@@ -28,8 +28,18 @@
       <label for="input-name">Cohort</label>
       <input type="text" name="cohort" placeholder="Your Cohort" value="{{ user.cohort }}">
   </div>
-      <small>Please type your cohort with the start month and year (e.g. Jan 2020)</small>
+      <small>Please type your cohort with the start month and year (e.g. January 2020)</small>
 
+  <div class="profile-div">
+      <label for="usertype-select">Select a duration type:</label>
+      <select name="studytime" id="usertype-select">
+        {{#select user.studytime}}
+        <option value="N/A">N/A</option>
+        <option value="Full-Time">Full-Time</option>
+        <option value="Part-Time">Part-Time</option>
+        {{/select}}
+      </select>
+  </div>
 
   <div class="profile-div">
       <label for="input-name">Email</label>

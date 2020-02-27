@@ -132,14 +132,25 @@ router.post('/private/filtered', ensureAuthenticated, (req, res) => {
   }
 
   let { filtered } = req.body;
+  console.log(filtered);
 
   User.find()
     .sort({ creationDate: 'descending' })
     .then(users => {
       let filter = users.filter(users => {
-        if (filtered === 'All') {
+        if (filtered[0] === 'All') {
           return users.usertype.toString();
         }
+        if (filtered[1] === 'All') {
+          return users.studytime;
+        }
+        if (filtered[2] === 'All') {
+          return users.campus;
+        }
+        if (filtered[3] === 'All') {
+          return users.cohort;
+        }
+
         return users.usertype.toString() === filtered;
       });
 
@@ -152,12 +163,10 @@ router.post('/private/filtered', ensureAuthenticated, (req, res) => {
 
 // user to go to edit profile page
 router.get('/dashboard/profile', ensureAuthenticated, (req, res) => {
-  console.log('REQ.USER', req.user);
-  console.log('REQ TYPE', req.user.usertype.toString());
-
   let data = {
-    states: ['Student', 'Teacher Assistant', 'Teacher'],
-    userType: req.user.usertype.toString()
+    states: ['Student', 'Teacher Assistant', 'Teacher', 'Part-Time', 'Full-Time', 'N/A'],
+    userType: req.user.usertype.toString(),
+    studyTime: req.user.studytime.toString()
   };
   // let array = ['Student', 'Teacher Assistant', 'Teacher'];
   res.render('users/profile', data);
@@ -166,7 +175,7 @@ router.get('/dashboard/profile', ensureAuthenticated, (req, res) => {
 // edit profile post results
 router.post('/dashboard/profile', ensureAuthenticated, (req, res, next) => {
   const userId = req.user._id;
-  const { name, email, usertype, number, campus, cohort } = req.body;
+  const { name, email, usertype, number, campus, cohort, studytime } = req.body;
 
   User.findByIdAndUpdate(userId, {
     name,
@@ -174,7 +183,8 @@ router.post('/dashboard/profile', ensureAuthenticated, (req, res, next) => {
     usertype,
     number,
     campus,
-    cohort
+    cohort,
+    studytime
   })
     .then(() => {
       req.flash('success_msg', 'New profile settings updated');

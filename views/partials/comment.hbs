@@ -23,7 +23,7 @@
 
 <div class="comment-item">
   <small><a href="/profile/{{ author._id }}">{{ author.name }}</a></small>
-  <p>{{ content }}</p>
+  <p class="col-11 pl-0" style="font-size: 0.9em">{{ content }}</p>
     {{#if sameUser}}
       <!-- Button trigger modal -->
       <button type="button" class="btn commentX" data-toggle="modal" data-target="#commentModal-{{post}}-{{_id}}">X</button>

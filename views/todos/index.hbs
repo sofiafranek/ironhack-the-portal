@@ -44,7 +44,7 @@
 {{#each todos}}
   <a href="/todos/{{ id }}">
     <div class="card card-body mb-2 col-auto overflow todos hvr-grow">
-        <h4>{{title}}</h4>
+        <h4 class="col-9 pl-0">{{title}}</h4>
         <p>Due date: {{date dueDate 'DD/MM/YYYY'}}</p>
         <p>Status: {{ status }}</p>
         <p class="details">{{details}}</p>

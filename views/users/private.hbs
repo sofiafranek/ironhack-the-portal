@@ -6,17 +6,62 @@
   <button>Search</button>
 </form>
 
-<form action="/users/private/filtered" method="post" class="col-auto todofilter">
-    <select name="filtered" id="filtered" class="custom-select">
-      <option selected value="">--Sort by User Type--</option>
-      <option value="All">All</option>
-      <option value="Student">Student</option>
-      <option value="Teacher Assistant">Teacher Assistant</option>
-      <option value="Teacher">Teacher</option>
-    </select>
-    <button>Filter</button>
-</form>
+  <button class="btn filterPriv" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    View filter options
+  </button>
 </div>
+
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body relative">
+      <form action="/users/private/filtered" method="post" class="col-auto privateFilter">
+          <select name="filtered" class="custom-select">
+            <option selected value="">--Sort by User Type--</option>
+            <option value="All">All</option>
+            <option value="Student">Student</option>
+            <option value="Teacher Assistant">Teacher Assistant</option>
+            <option value="Teacher">Teacher</option>
+          </select>
+
+          <select name="filtered" class="custom-select">
+            <option selected value="">--Sort by Study Duration--</option>
+            <option value="All">All</option>
+            <option value="Part-Time">Part-TIme</option>
+            <option value="Full-Time">Full-Time</option>
+          </select>
+
+          <select name="filtered" class="custom-select">
+            <option selected value="">--Sort by Campus--</option>
+            <option value="All">All</option>
+            <option value="Paris">Paris</option>
+            <option value="Lisbon">Lisbon</option>
+            <option value="Amsterdam">Amsterdam</option>
+            <option value="Berlin">Berlin</option>
+            <option value="Barcelona">Barcelona</option>
+            <option value="Madrid">Madrid</option>
+            <option value="Mexico City">Mexico City</option>
+            <option value="Miami">Miami</option>
+            <option value="Sao Paulo">Sao Paulo</option>
+          </select>
+
+          <select name="filtered" class="custom-select">
+            <option selected value="">--Sort by Cohort--</option>
+            <option value="All">All</option>
+            <option value="January 2020">Jan 2020</option>
+            <option value="February 2020">Feb 2020</option>
+            <option value="March 2020">March 2020</option>
+            <option value="April 2020">April 2020</option>
+            <option value="June 2020">June 2020</option>
+            <option value="July 2020">July 2020</option>
+            <option value="August 2020">August 2020</option>
+            <option value="September 2020">September 2020</option>
+            <option value="October 2020">October 2020</option>
+            <option value="November 2020">November 2020</option>
+            <option value="December 2020">December 2020</option>
+          </select>
+          <button>Filter</button>
+      </form>
+    </div>
+  </div>
 
 {{#each allUsers}}
   <div class="card hvr-grow private">

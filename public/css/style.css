@@ -335,8 +335,8 @@ small span {
 }
 
 .todos {
-  min-height: 320px;
-  min-width: 550px;
+  min-height: 380px;
+  max-width: 550px;
 }
 
 .details {
@@ -440,6 +440,10 @@ nav button {
   margin: 0;
 }
 
+.custom-select {
+  margin: 0 5px;
+}
+
 .space {
   margin: 0 10px;
 }
@@ -457,8 +461,22 @@ nav button {
   margin-bottom: 20px;
 }
 
-.card-body button {
+/* .card-body button {
   margin-top: 20px;
+} */
+
+.collapse .card-body {
+  margin: 25px 0;
+}
+
+.privateFilter {
+  display: flex;
+  padding: 0;
+}
+
+.collapse button {
+  line-height: 38px;
+  margin-left: 15px;
 }
 
 .btn-block {
@@ -474,6 +492,27 @@ nav button {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+.filterPriv {
+  position: absolute;
+  right: 0;
+  top: 16px;
+  /* line-height: 31px; */
+  font-family: 'Gordita Bold';
+  background-color: #5489b8;
+  border-radius: 3px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  line-height: 45px;
+  padding: 0px 25px;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s ease-in-out;
+  white-space: nowrap;
 }
 
 .editDelete {

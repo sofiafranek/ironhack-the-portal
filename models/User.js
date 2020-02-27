@@ -23,11 +23,15 @@ const UserSchema = new Schema(
     },
     campus: {
       type: String,
-      default: 'None listed'
+      default: 'N/A'
     },
     cohort: {
       type: String,
-      default: 'None listed'
+      default: 'N/A'
+    },
+    studytime: {
+      type: ['Part-Time', 'Full-Time', 'N/A'],
+      default: 'N/A'
     },
     password: {
       type: String,
