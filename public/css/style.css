@@ -257,9 +257,10 @@ small span {
 }
 
 .archive {
-  padding-bottom: 5px;
   font-family: 'Gordita';
-  padding-left: 0;
+  position: absolute;
+  left: 115px;
+  top: 20px;
 }
 
 .profile-div {
@@ -489,14 +490,8 @@ nav button {
   padding: 10px 0 5px;
 }
 
-.overflow p {
-  line-height: 28px;
-  max-height: 84px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+.details {
+  min-height: 84px;
 }
 
 .filterPriv {
@@ -664,6 +659,33 @@ nav button {
 @media (max-width: 775px) {
   .single-post h2 {
     padding-top: 70px;
+  }
+}
+
+@media (max-width: 750px) {
+  .responsive-todo {
+    display: block !important;
+  }
+  .responsive-todo .todofilter {
+    position: relative;
+    margin-bottom: 25px;
+    max-width: 325px;
+  }
+  .privatesearch {
+    margin-bottom: 0 !important;
+  }
+  .privatefilter {
+    position: relative;
+    margin-bottom: 50px;
+  }
+  .privateFilter {
+    display: block;
+  }
+  .privateFilter button {
+    margin-left: 0;
+  }
+  .privateFilter .custom-select {
+    margin: 10px 0;
   }
 }
 

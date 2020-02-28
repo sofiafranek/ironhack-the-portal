@@ -1,4 +1,4 @@
-<div class="d-flex relative">
+<div class="d-flex relative responsive-todo">
   <form action="/todos/search" method="post" class="searchbar col-auto">
     <input type="text" name="search" placeholder="Search"/>
     <button>Search</button>
@@ -59,6 +59,6 @@
 {{/each}}
 {{#if searchNothing}}
   <p class="noListed" style="position: absolute; top: 60px;"> There are no todos that match your search </p>
-  <a class="noListed" style="position: absolute; top: 60px; left: 350px;" href="/todos">See all todos again</a>
+  <p><a class="noListed" style="position: absolute; top: 100px; left: 0;" href="/todos">See all todos again</a></p>
 {{/if}}
 </div>
