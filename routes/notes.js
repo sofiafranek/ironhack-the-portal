@@ -21,6 +21,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
 // Note index page after search query
 router.post('/search', ensureAuthenticated, (req, res) => {
   let { search } = req.body;
+  let searchNothing;
 
   Note.find({ user: req.user.id })
     .sort({ creationDate: 'descending' })
@@ -34,8 +35,12 @@ router.post('/search', ensureAuthenticated, (req, res) => {
             .includes(search.toLowerCase())
         );
       });
+      if (matched.length === 0) {
+        searchNothing = true;
+      }
       res.render('notes/index', {
-        notes: matched
+        notes: matched,
+        searchNothing
       });
     });
 });

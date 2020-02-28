@@ -41,6 +41,7 @@ router.post('/filtered', ensureAuthenticated, (req, res) => {
 // Note index page after search query
 router.post('/search', ensureAuthenticated, (req, res) => {
   let { search } = req.body;
+  let searchNothing;
 
   Todo.find({ user: req.user.id })
     .sort({ creationDate: 'descending' })
@@ -54,8 +55,12 @@ router.post('/search', ensureAuthenticated, (req, res) => {
             .includes(search.toLowerCase())
         );
       });
+      if (matched.length === 0) {
+        searchNothing = true;
+      }
       res.render('todos/index', {
-        todos: matched
+        todos: matched,
+        searchNothing
       });
     });
 });
