@@ -131,34 +131,20 @@ router.post('/private/filtered', ensureAuthenticated, (req, res) => {
     private = req.user.usertype.toString() === 'Teacher' ? true : false;
   }
 
-  let { filtered } = req.body;
-  console.log(filtered);
+  let body = req.body;
 
-  User.find()
-    .sort({ creationDate: 'descending' })
-    .then(users => {
-      let filter = users.filter(users => {
-        if (filtered[0] === 'All') {
-          return users.usertype.toString();
-        }
-        if (filtered[1] === 'All') {
-          return users.studytime;
-        }
-        if (filtered[2] === 'All') {
-          return users.campus;
-        }
-        if (filtered[3] === 'All') {
-          return users.cohort;
-        }
+  for (let key in body) {
+    body[key].length > 0 ? '' : delete body[key];
+  }
 
-        return users.usertype.toString() === filtered;
-      });
+  console.log('after', body);
 
-      res.render('users/private', {
-        allUsers: filter,
-        privatePage: private
-      });
+  User.find(body).then(user => {
+    res.render('users/private', {
+      allUsers: user,
+      privatePage: private
     });
+  });
 });
 
 // user to go to edit profile page
