@@ -54,11 +54,11 @@
       <a class="btn btn-block mt-3 viewButton" href="/todos/{{ id }}">View</a>
     </div>
   </a>
-</div>
 {{else}}
   <p class="noListed pt-3 pb-3">No todos listed</p>
 {{/each}}
 {{#if searchNothing}}
-  <p class="noListed"> There are no todos that match your search </p>
-  <a class="noListed" href="/todos">See all todos again</a>
+  <p class="noListed" style="position: absolute; top: 60px;"> There are no todos that match your search </p>
+  <a class="noListed" style="position: absolute; top: 60px; left: 350px;" href="/todos">See all todos again</a>
 {{/if}}
+</div>
