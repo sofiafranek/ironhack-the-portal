@@ -128,6 +128,17 @@ router.get('/create', ensureAuthenticated, (req, res, next) => {
 // when a user creates a channel
 router.post('/create', ensureAuthenticated, (req, res, next) => {
   const { name } = req.body;
+  let inUse = false;
+
+  Channel.find().then(channels => {
+    channels.filter(channel => {
+      if (name === channel.name) {
+        inUse = true;
+        res.render('channel/create', { inUse: inUse });
+      }
+    });
+  });
+
   Channel.create({
     name,
     author: req.user._id
