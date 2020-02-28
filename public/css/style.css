@@ -146,6 +146,11 @@ button {
   margin-right: 5em;
 }
 
+.keep {
+  font-family: 'Gordita Bold';
+  color: #597b99;
+}
+
 .feed .card {
   margin: 25px 0;
   min-width: 100%;

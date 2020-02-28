@@ -39,7 +39,7 @@
   <button type="button" class="btn mb-2 post-delete" data-toggle="modal" data-target="#postModal-{{post.channel._id}}-{{post._id}}"> Delete Post </button>
   {{/if}}
   <span>
-    Channel: <a href="/channel/{{ post.channel._id }}">{{ post.channel.name }}</a> <span class="space">|</span> Author <a href="/profile/{{ post.author._id }}">{{ post.author.name }}</a>
+    Channel: <a href="/channel/{{ post.channel._id }}">{{ post.channel.name }}</a> <span class="space">|</span> Author: <span class="keep"> {{ post.author.name }} </span>
   </span>
   <p>{{ post.content }}</p>
 </article>
