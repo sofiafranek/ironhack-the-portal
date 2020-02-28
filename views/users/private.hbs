@@ -15,22 +15,29 @@
     <div class="card card-body relative">
       <form action="/users/private/filtered" method="post" class="col-auto privateFilter">
           <select name="usertype" class="custom-select">
-            <option selected value="">--Sort by User Type--</option>
+            <option selected value="">--User Type--</option>
             <option value="">All</option>
             <option value="Student">Student</option>
             <option value="Teacher Assistant">Teacher Assistant</option>
             <option value="Teacher">Teacher</option>
           </select>
 
+          <select name="course" class="custom-select">
+            <option selected value="">--Course--</option>
+            <option value="Web Development">Web Development</option>
+            <option value="UX/UI Design">UX/UI Design</option>
+            <option value="Data Analysis">Data Analysis</option>
+          </select>
+
           <select name="studytime" class="custom-select">
-            <option selected value="">--Sort by Study Duration--</option>
+            <option selected value="">--Study Duration--</option>
             <option value="">All</option>
             <option value="Part-Time">Part-Time</option>
             <option value="Full-Time">Full-Time</option>
           </select>
 
           <select name="campus" class="custom-select">
-            <option selected value="">--Sort by Campus--</option>
+            <option selected value="">--Campus--</option>
             <option value="">All</option>
             <option value="Paris">Paris</option>
             <option value="Lisbon">Lisbon</option>
@@ -44,7 +51,7 @@
           </select>
 
           <select name="cohort" class="custom-select">
-            <option selected value="">--Sort by Cohort--</option>
+            <option selected value="">--Cohort--</option>
             <option value="">All</option>
             <option value="January 2020">January 2020</option>
             <option value="February 2020">February 2020</option>
@@ -66,7 +73,7 @@
 {{#each allUsers}}
   <div class="card hvr-grow private">
     <h4 class="mb-2">{{name}}</h4>
-    <p class="mb-4">{{usertype}}</p>
+    <p class="mb-4">{{usertype}} - {{course}}</p>
     <p class="mb-1">Campus: {{campus}}</p>
     <p class="mb-4">Cohort: {{cohort}}</p>
     <p class="mb-1">Email : {{email}}</p>

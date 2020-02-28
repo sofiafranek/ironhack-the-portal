@@ -137,8 +137,6 @@ router.post('/private/filtered', ensureAuthenticated, (req, res) => {
     body[key].length > 0 ? '' : delete body[key];
   }
 
-  console.log('after', body);
-
   User.find(body).then(user => {
     res.render('users/private', {
       allUsers: user,
@@ -161,7 +159,7 @@ router.get('/dashboard/profile', ensureAuthenticated, (req, res) => {
 // edit profile post results
 router.post('/dashboard/profile', ensureAuthenticated, (req, res, next) => {
   const userId = req.user._id;
-  const { name, email, usertype, number, campus, cohort, studytime } = req.body;
+  const { name, email, usertype, number, campus, cohort, studytime, course } = req.body;
 
   User.findByIdAndUpdate(userId, {
     name,
@@ -170,7 +168,8 @@ router.post('/dashboard/profile', ensureAuthenticated, (req, res, next) => {
     number,
     campus,
     cohort,
-    studytime
+    studytime,
+    course
   })
     .then(() => {
       req.flash('success_msg', 'New profile settings updated');

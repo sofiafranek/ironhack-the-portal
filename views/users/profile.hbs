@@ -20,6 +20,17 @@
   </div>
 
   <div class="profile-div">
+      <label for="usertype-select">Select a course:</label>
+      <select name="course" id="usertype-select">
+        {{#select user.course}}
+        <option value="Web Development">Web Development</option>
+        <option value="UX/UI Design">UX/UI Design</option>
+        <option value="Data Analysis">Data Analysis</option>
+        {{/select}}
+      </select>
+  </div>
+
+  <div class="profile-div">
       <label for="input-name">Campus</label>
       <input type="text" name="campus" placeholder="Your Campus" value="{{ user.campus }}">
   </div>

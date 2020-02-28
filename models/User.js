@@ -29,6 +29,10 @@ const UserSchema = new Schema(
       type: String,
       default: 'N/A'
     },
+    course: {
+      type: ['UX/UI Design', 'Web Development', 'Data Analyst'],
+      default: 'N/A'
+    },
     studytime: {
       type: ['Part-Time', 'Full-Time', 'N/A'],
       default: 'N/A'
