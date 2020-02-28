@@ -11,11 +11,11 @@
     {{#each posts}}
       {{>post}}
       {{else}}
-      <p class="noListed">No posts created</p>
+      <p class="noListed">No posts</p>
     {{/each}}
-    {{!-- <button id="load-more-comments">Load More</button> --}}
     {{#if searchNothing}}
-      <p> There are no posts that match your search </p>
+      <p class="ml-3"> There are no posts that match your search </p>
+      <a href="/channel">See all posts</a>
     {{/if}}
   </section>
   <aside class="aside">
